@@ -5,6 +5,7 @@ public class RestaurantDTO {
 	private String res_info;
 	private String res_tel;
 	private int region_code;
+	private int wish_count;
 	
 	public String getRes_id() {
 		return res_id;
