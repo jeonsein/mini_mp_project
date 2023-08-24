@@ -1,0 +1,62 @@
+-- 멤버 테이블
+CREATE TABLE member (
+    id VARCHAR2(20 BYTE) PRIMARY KEY,
+    pwd NUMBER(9) NOT NULL,
+    tel VARCHAR2(20 BYTE) NOT NULL,
+    name VARCHAR2(20 BYTE) NOT NULL,
+    region_code NUMBER(9) NOT NULL,
+    FOREIGN KEY(region_code) REFERENCES REGION (region_code)
+);
+
+-- 지역 테이블
+CREATE TABLE REGION(
+    region_code NUMBER(9) PRIMARY KEY,
+    region_name VARCHAR2(10 BYTE) NOT NULL
+);
+
+-- 찜 테이블
+CREATE TABLE wish_list(
+    res_id VARCHAR2(20 BYTE),
+    id VARCHAR2(20 BYTE),
+    CONSTRAINT complex_key PRIMARY KEY(res_id, id),
+    CONSTRAINT fr_key1 FOREIGN KEY(res_id) REFERENCES restaurant(res_id),
+    CONSTRAINT fr_key2 FOREIGN KEY(id) REFERENCES member(id)
+);
+
+-- 식당 테이블
+CREATE TABLE RESTAURANT (
+res_id VARCHAR2(20 BYTE) CONSTRAINT res_id_pk PRIMARY KEY,
+res_name VARCHAR2(20 BYTE) NOT NULL,
+res_info VARCHAR2(4000 BYTE) NOT NULL,
+res_tel VARCHAR2(20 BYTE) NOT NULL,
+region_code NUMBER(1) NOT NULL,
+CONSTRAINT region_code_fk FOREIGN KEY(region_code) REFERENCES REGION(region_code)
+);
+ALTER TABLE restaurant 
+ADD(wish_count NUMBER(9)); -- wish_count 컬럼 추가
+ALTER TABLE restaurant MODIFY wish_count NUMBER(9) DEFAULT 0 NOT NULL; -- wish_count 컬럼에 DEFAULT값 0으로 주고, NOT NULL 추가
+
+-- 메뉴 테이블
+CREATE TABLE menu(
+    menu_name VARCHAR2(30 BYTE),
+    menu_price VARCHAR2(30 BYTE),
+    res_id VARCHAR2(20 BYTE),
+    
+    CONSTRAINT fk_res_id FOREIGN KEY(res_id) REFERENCES restaurant(res_id) 
+);
+
+-- SELECT
+SELECT *
+FROM member;
+
+SELECT *
+FROM REGION;
+
+SELECT *
+FROM restaurant;
+
+SELECT *
+FROM wish_list;
+
+SELECT *
+FROM menu;
