@@ -1,3 +1,4 @@
+package member_dto;
 public class MemberDTO {
 
 	private String id;

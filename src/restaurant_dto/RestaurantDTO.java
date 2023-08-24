@@ -1,3 +1,4 @@
+package restaurant_dto;
 public class RestaurantDTO {
 
 	private String res_id;
