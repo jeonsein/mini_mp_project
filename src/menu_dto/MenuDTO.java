@@ -1,3 +1,4 @@
+package menu_dto;
 public class MenuDTO {
 
 	private String menu_name;

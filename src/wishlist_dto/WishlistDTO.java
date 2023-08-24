@@ -1,3 +1,4 @@
+package wishlist_dto;
 public class WishlistDTO {
 
 	private String res_id;
