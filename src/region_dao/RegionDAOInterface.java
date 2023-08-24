@@ -1,5 +1,5 @@
 package region_dao;
 
-public class RegionDAOInterface {
+public interface RegionDAOInterface {
 
 }

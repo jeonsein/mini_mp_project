@@ -1,5 +1,5 @@
 package menu_dao;
 
-public class MenuDAOInterface {
+public interface MenuDAOInterface {
 
 }
