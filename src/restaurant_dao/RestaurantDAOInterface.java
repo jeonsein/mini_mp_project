@@ -1,7 +1,5 @@
 package restaurant_dao;
 
-public class RestaurantDAOInterface {
+public interface RestaurantDAOInterface {
 	
-	
-
 }
