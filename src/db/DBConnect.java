@@ -1,4 +1,5 @@
 package db;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -12,6 +13,7 @@ public class DBConnect {
 	String password = "mango";
 	
 	private DBConnect() {
+		
 		// 드라이버클래스 JVM에 로드
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
