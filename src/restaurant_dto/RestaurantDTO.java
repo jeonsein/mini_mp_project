@@ -8,6 +8,13 @@ public class RestaurantDTO {
 	private int region_code;
 	private int wish_count;
 	
+	public RestaurantDTO() {
+		
+	}
+	public RestaurantDTO(String res_name) {
+		this.res_name = res_name;
+	}
+	
 	public String getRes_id() {
 		return res_id;
 	}
@@ -22,6 +29,12 @@ public class RestaurantDTO {
 	}
 	public String getRes_info() {
 		return res_info;
+	}
+	public int getWish_count() {
+		return wish_count;
+	}
+	public void setWish_count(int wish_count) {
+		this.wish_count = wish_count;
 	}
 	public void setRes_info(String res_info) {
 		this.res_info = res_info;
@@ -38,5 +51,12 @@ public class RestaurantDTO {
 	public void setRegion_code(int region_code) {
 		this.region_code = region_code;
 	}
+	@Override
+	public String toString() {
+		
+		return "식당 목록 : " + res_name;
+	}
+	
+
 	
 }
