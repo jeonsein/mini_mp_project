@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+import member_dao.MemberDAO;
 public class pro {
 	
 	public static void main(String[] args) {
@@ -17,7 +17,7 @@ public class pro {
 			
 			//뒤로 가기 
 			if (opt.equals("0")) {
-				 
+				 break;
 				
 			// 이름 변경
 			} else if (opt.equals("1")) {
@@ -46,12 +46,13 @@ public class pro {
 			String opt1 = sc.nextLine();
 			// 정보 삭제되면서, 처음화면으로
 			if (opt1.equals("1")) {
-				System.out.println("정말 탈퇴하시겠습니까? 정보복구가 불가능합니다.");
+				 
 				
+				return ; 
 			
 			// my page 이동
 			} else if (opt1.equals("2")) {
-			 
+			  
 		 
 			}
 			break;

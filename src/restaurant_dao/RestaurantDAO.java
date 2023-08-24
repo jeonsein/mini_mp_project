@@ -66,7 +66,6 @@ public class RestaurantDAO implements RestaurantDAOInterface {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rs);
 		}
 		
 		
