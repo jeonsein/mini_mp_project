@@ -1,4 +1,4 @@
-package memberDAO;
+package member_dao;
 
 import java.sql.Connection;
 	
