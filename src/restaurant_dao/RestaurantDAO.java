@@ -1,4 +1,4 @@
-psdfackage restaurant_dao;
+package restaurant_dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
