@@ -14,6 +14,19 @@ public class RestaurantDTO {
 	public RestaurantDTO(String res_name) {
 		this.res_name = res_name;
 	}
+	public RestaurantDTO(String res_name,int wish_count ) {
+		this.res_name = res_name;
+		this.wish_count = wish_count;
+	}
+	
+	public RestaurantDTO(String res_name, String res_tel, String res_info, int region_code, int wish_count) {
+		this.res_name = res_name;
+		this.res_tel = res_tel;
+		this.res_info = res_info;
+		this.region_code = region_code;
+		this.wish_count = wish_count;
+	}
+	
 	
 	public String getRes_id() {
 		return res_id;
@@ -54,7 +67,7 @@ public class RestaurantDTO {
 	@Override
 	public String toString() {
 		
-		return "식당 목록 : " + res_name;
+		return res_name + " " + wish_count;
 	}
 	
 
