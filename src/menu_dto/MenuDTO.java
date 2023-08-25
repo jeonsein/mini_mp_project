@@ -5,6 +5,15 @@ public class MenuDTO {
 	private String menu_price;
 	private int region_code;
 	
+	public MenuDTO() {
+		
+	}
+	
+	public MenuDTO(String menu_name, String menu_price) {
+		this.menu_name = menu_name;
+		this.menu_price = menu_price;
+	}
+	
 	public String getMenu_name() {
 		return menu_name;
 	}
@@ -23,5 +32,14 @@ public class MenuDTO {
 	public void setRegion_code(int region_code) {
 		this.region_code = region_code;
 	}
+
+	@Override
+	public String toString() {
+		
+		
+		return menu_name + " / " + menu_price;
+	}
+	
+	
 	
 }
