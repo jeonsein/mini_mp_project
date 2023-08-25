@@ -8,12 +8,12 @@ public class RestaurantDTO {
 	private int region_code;
 	private int wish_count;
 	
-	public RestaurantDTO() {
-		
-	}
+	public RestaurantDTO() {}
+	
 	public RestaurantDTO(String res_name) {
 		this.res_name = res_name;
 	}
+	
 	public RestaurantDTO(String res_name,int wish_count ) {
 		this.res_name = res_name;
 		this.wish_count = wish_count;
@@ -27,43 +27,54 @@ public class RestaurantDTO {
 		this.wish_count = wish_count;
 	}
 	
-	
 	public String getRes_id() {
 		return res_id;
 	}
+	
 	public void setRes_id(String res_id) {
 		this.res_id = res_id;
 	}
+	
 	public String getRes_name() {
 		return res_name;
 	}
+	
 	public void setRes_name(String res_name) {
 		this.res_name = res_name;
 	}
+	
 	public String getRes_info() {
 		return res_info;
 	}
+	
 	public int getWish_count() {
 		return wish_count;
 	}
+	
 	public void setWish_count(int wish_count) {
 		this.wish_count = wish_count;
 	}
+	
 	public void setRes_info(String res_info) {
 		this.res_info = res_info;
 	}
+	
 	public String getRes_tel() {
 		return res_tel;
 	}
+	
 	public void setRes_tel(String res_tel) {
 		this.res_tel = res_tel;
 	}
+	
 	public int getRegion_code() {
 		return region_code;
 	}
+	
 	public void setRegion_code(int region_code) {
 		this.region_code = region_code;
 	}
+	
 	@Override
 	public String toString() {
 		

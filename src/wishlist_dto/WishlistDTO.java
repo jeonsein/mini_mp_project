@@ -22,4 +22,4 @@ public class WishlistDTO {
 		this.id = id;
 	}
 	
-}
+} // end class
