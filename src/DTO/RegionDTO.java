@@ -1,3 +1,4 @@
+package DTO;
 public class RegionDTO {
 
 	private int region_code;
