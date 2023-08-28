@@ -13,9 +13,11 @@ import wishlist_dao.WishlistDAO;
 import wishlist_dto.WishlistDTO;
 
 public class RestaurantService {
-
-	Scanner sc = new Scanner(System.in);
 	
+	String loggedInUserId = "";
+	
+	Scanner sc = new Scanner(System.in);
+		
 	RestaurantDAO resDAO = new RestaurantDAO();
 	RestaurantDTO resDTO = new RestaurantDTO();
 	
@@ -26,11 +28,15 @@ public class RestaurantService {
 	
 	List<RestaurantDTO> Restaurantlist = new ArrayList<>();
 	List<RegionDTO> regionList = new ArrayList<>();
-	
-	
+
 	// 맛집 리스트 보기
 	public void restaurantList() {
 
+	    System.out.println("아이디 입력: ");
+	    String userId = sc.nextLine();
+
+	    loggedInUserId = userId;
+		
 		while (true) {
 			System.out.println("0. 이전 페이지로 돌아가기");
 			System.out.println("1. 지역별로 보기");
@@ -79,16 +85,23 @@ public class RestaurantService {
 			System.out.println("0. 이전 페이지로 돌아가기");
 			System.out.println("1. 찜하기");
 			select = sc.nextInt();
+			
 			if(select == 0) {
 				break;
 			} else if(select == 1) {
-				// 세인 작성 
-				System.out.println(resDAO.selectRegionRes(regionNum, select).getRes_id());
+				String wish_res_id = resDAO.selectRegionRes(regionNum, select).getRes_id();
 				
-			}
-		}
-	}
-	
+				try {
+					wishlistDAO.addWish(loggedInUserId, wish_res_id);
+					
+					System.out.println("찜 리스트에 추가되었습니다!");
+				} catch (Exception e) {
+					System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
+				} // try-catch
+				
+			} // if-else
+		} // while
+	} // regionSelect()
 	
 	// 지역 순에서 원하는 식당 보기
 	public void selectRegionRes(int RegionNum, int selectNum) {
@@ -106,7 +119,6 @@ public class RestaurantService {
 		System.out.println(resDTO.getRes_info()+"\n");
 	}
 	
-	
 	// 찜 많은 순으로 보기
 	public void wishBestSelect() {
 		Restaurantlist = resDAO.wishBestSelect();
@@ -117,6 +129,7 @@ public class RestaurantService {
 		}
 		System.out.print("원하시는 식당을 선택해주세요 : ");
 		int select = sc.nextInt();
+		int wish_n = select;
 		while(true) {
 			selectWishRes(select);
 			System.out.println("원하시는 기능을 선택해주세요.");
@@ -126,13 +139,19 @@ public class RestaurantService {
 			if(select == 0) {
 				break;
 			} else if(select == 1) {
-				// 찜하기 기능!
-				int wish_num = select;
-				
-				
-			}
-		}
-	}
+				String wish_res_id = resDAO.selectWishRes(wish_n).getRes_id();
+			    
+				try {
+			        wishlistDAO.addWish(loggedInUserId, wish_res_id);  // 여기에서도 addWish 메서드를 호출합니다.
+			        
+			        System.out.println("찜 리스트에 추가되었습니다!");
+			    } catch (Exception e) {
+			        System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
+			    } // try-catch
+			
+			} // if-else
+		} // while
+	} // wishBestSelect()
 	
 	// 찜 많은 순에서 원하는 식당 보기
 	public void selectWishRes(int select) {
@@ -149,16 +168,6 @@ public class RestaurantService {
 		System.out.println(resDTO.getLocation());
 		System.out.println(resDTO.getRes_info()+"\n");
 	}
-	
-	
-	public void addWish() {
-		
-	}
-	
-	
-	
-	
-	
 
 	public static void main(String[] args) {
 		
