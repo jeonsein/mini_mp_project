@@ -25,6 +25,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 		} // try-catch
 
 		Connection conn = null;
+		PreparedStatement pstmt = null;
 
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String user = "mango";
@@ -63,7 +64,15 @@ public class WishlistDAO implements WishlistDAOInterface {
 
 		} catch (Exception e) {
 			throw new Exception("찜 리스트에 추가하지 못했습니다.: " + e.getMessage());
-		} // try-catch
+		}  finally {
+			
+	        try {
+	            if (pstmt != null) pstmt.close();
+	            if (conn != null) conn.close();
+	        } catch (Exception e) {
+	            log.error("error invoked. ", e);
+	        } // try-catch
+	    } // try-catch-finally
 
 	} // addWish()
 	
@@ -71,7 +80,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 	
 	// 위시리스트에 이미 추가되어있는지 아닌지를 확인하는 메소드
 	@Override
-	public boolean isAlreadyWished(String userId, String resId) throws Exception {
+	public boolean isAlreadyWished(WishlistDTO wishlistDTO) throws Exception {
 	    
 		Connection conn = null;
 	    PreparedStatement pstmt = null;
@@ -81,14 +90,15 @@ public class WishlistDAO implements WishlistDAOInterface {
 		String user = "mango";
 		String password = "mango";
 	    
-	    String checkSQL = "SELECT COUNT(*) FROM wish_list WHERE id = ? AND res_id = ?";
+	    String isAlreadyWishedSQL = "SELECT COUNT(*) FROM wish_list WHERE id = ? AND res_id = ?";
 	    
 	    try {
 	        conn = DriverManager.getConnection(url, user, password);
 	        
-	        pstmt = conn.prepareStatement(checkSQL);
-	        pstmt.setString(1, userId);
-	        pstmt.setString(2, resId);
+	        pstmt = conn.prepareStatement(isAlreadyWishedSQL);
+	        
+	        pstmt.setString(1, wishlistDTO.getId());
+	        pstmt.setString(2, wishlistDTO.getRes_id());
 	        
 	        rs = pstmt.executeQuery();
 	        
@@ -97,7 +107,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 	            int count = rs.getInt(1);
 	            
 	            return count > 0;
-	        }
+	        } // if
 	        
 	    } catch (Exception e) {
 	        throw new Exception("찜 리스트 조회를 실패하였습니다.: " + e.getMessage());
@@ -108,6 +118,6 @@ public class WishlistDAO implements WishlistDAOInterface {
 	    } // try-catch-finally
 	    
 	    return false;
-	}
+	} // isAlreadyWished()
 
 } // end class

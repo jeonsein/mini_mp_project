@@ -88,12 +88,18 @@ public class RestaurantService {
 			
 			if(select == 0) {
 				break;
+			
 			} else if(select == 1) {
 			    String wish_res_id = resDAO.selectRegionRes(regionNum, select).getRes_id();
 			    
+			    // DTO 객체를 써야할까 굳이...?
+			    WishlistDTO wishlistDTO = new WishlistDTO();
+			    wishlistDTO.setId(loggedInUserId);
+			    wishlistDTO.setRes_id(wish_res_id);
+			    
 			    try {
 			    	
-			        if (wishlistDAO.isAlreadyWished(loggedInUserId, wish_res_id)) {
+			        if (wishlistDAO.isAlreadyWished(wishlistDTO)) {
 			            System.out.println("찜 목록에 이미 등록되어 있습니다!");
 			        } else {
 			            wishlistDAO.addWish(loggedInUserId, wish_res_id);
@@ -104,6 +110,7 @@ public class RestaurantService {
 			        System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
 			    } // try-catch
 			} // if-else
+			
 			
 		} // while
 	} // regionSelect()
@@ -146,9 +153,14 @@ public class RestaurantService {
 			} else if(select == 1) {
 			    String wish_res_id = resDAO.selectWishRes(wish_n).getRes_id();
 			    
+			    WishlistDTO wishlistDTO = new WishlistDTO();
+			    
+			    wishlistDTO.setId(loggedInUserId);
+			    wishlistDTO.setRes_id(wish_res_id);
+			    
 			    try {
-			        
-			    	if (wishlistDAO.isAlreadyWished(loggedInUserId, wish_res_id)) {
+			    	
+			    	if (wishlistDAO.isAlreadyWished(wishlistDTO)) {
 			            System.out.println("찜 목록에 이미 등록되어 있습니다!");
 			        } else {
 			            wishlistDAO.addWish(loggedInUserId, wish_res_id);
