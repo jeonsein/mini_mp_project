@@ -9,15 +9,24 @@ import region_dao.RegionDAO;
 import region_dto.RegionDTO;
 import restaurant_dao.RestaurantDAO;
 import restaurant_dto.RestaurantDTO;
+import wishlist_dao.WishlistDAO;
+import wishlist_dto.WishlistDTO;
 
 public class RestaurantService {
 
 	Scanner sc = new Scanner(System.in);
+	
 	RestaurantDAO resDAO = new RestaurantDAO();
 	RestaurantDTO resDTO = new RestaurantDTO();
+	
 	RegionDAO regionDAO = new RegionDAO();
+	
+	WishlistDAO wishlistDAO = new WishlistDAO();
+	WishlistDTO wishlistDTO = new WishlistDTO();
+	
 	List<RestaurantDTO> Restaurantlist = new ArrayList<>();
 	List<RegionDTO> regionList = new ArrayList<>();
+	
 	
 	// 맛집 리스트 보기
 	public void restaurantList() {
@@ -72,6 +81,7 @@ public class RestaurantService {
 				break;
 			} else if(select == 1) {
 				// 세인 작성
+				
 			}
 		}
 	}
@@ -113,7 +123,10 @@ public class RestaurantService {
 			if(select == 0) {
 				break;
 			} else if(select == 1) {
-				// 세인 작성
+				// 찜하기 기능!
+				int wish_num = select;
+				
+				
 			}
 		}
 	}
@@ -133,6 +146,15 @@ public class RestaurantService {
 		System.out.println(resDTO.getLocation());
 		System.out.println(resDTO.getRes_info()+"\n");
 	}
+	
+	
+	public void addWish() {
+		
+	}
+	
+	
+	
+	
 	
 
 	public static void main(String[] args) {

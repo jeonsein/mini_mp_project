@@ -11,7 +11,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class WishlistDAO implements WishlistDAOInterface {
-// 찜하기 기능의 인터페이스를 정의함!
+	// 찜하기 기능의 인터페이스를 정의함!
 
 	@Override
 	public void addWish(String userId, int resId) throws Exception {
@@ -32,7 +32,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 
 		// 찜하기
 		String addWishSQL = "INSERT INTO wish_list (user_id, res_id) VALUES (?, ?)";
-		
+
 		// restaurant의 wish_count 업데이트
 		String addWishCountSQL = "UPDATE restaurant SET wish_count = wish_count + 1 WHERE res_id = ?";
 
@@ -61,7 +61,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 
 	} // addWish()
 
-//    ------------------------------------------------------------------
+	//    ------------------------------------------------------------------
 
 	// 사용자 입력값으로 res_id 얻어오기!
 	@Override
@@ -82,7 +82,12 @@ public class WishlistDAO implements WishlistDAOInterface {
 		String user = "mango";
 		String password = "mango";
 
-		String getResIdSQL = "SELECT * FROM (SELECT res_id, ROWNUM as r FROM restaurant) WHERE r =  ?";
+		//String getResIdSQL = "SELECT * FROM (SELECT res_id, ROWNUM as r FROM restaurant) WHERE r =  ?";
+		String getResIdSQL = "SELECT RES_ID"
+				+ "FROM (SELECT ROWNUM AS RN, RES_ID"
+				+ "FROM(SELECT * FROM RESTAURANT ORDER BY WISH_COUNT DESC)"
+				+ ")"
+				+ "WHERE RN = ?";
 
 		ResultSet rs = null;
 
