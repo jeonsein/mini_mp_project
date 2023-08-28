@@ -62,7 +62,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 			addWishCount_Pstmt.executeUpdate();
 
 		} catch (Exception e) {
-			throw new Exception("찜하기 실패: " + e.getMessage());
+			throw new Exception("찜 리스트에 추가하지 못했습니다.: " + e.getMessage());
 		} // try-catch
 
 	} // addWish()
