@@ -58,11 +58,13 @@ public class RestaurantService {
 		int num4 = 1;
 		for(RestaurantDTO res : Restaurantlist) {
 			System.out.println(num4 + ". " + res);
+			
 			num4++;
 		}
 		System.out.print("원하시는 식당을 선택해주세요 : ");
 		int select = sc.nextInt();
 		while(true) {
+			int n = select;
 			selectRegionRes(regionNum, select);
 			System.out.println("원하시는 기능을 선택해주세요.");
 			System.out.println("0. 이전 페이지로 돌아가기");
@@ -71,7 +73,9 @@ public class RestaurantService {
 			if(select == 0) {
 				break;
 			} else if(select == 1) {
-				// 세인 작성
+				// 세인 작성 
+				System.out.println(resDAO.selectRegionRes(regionNum, select).getRes_id());
+				
 			}
 		}
 	}

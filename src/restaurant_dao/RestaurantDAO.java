@@ -147,6 +147,7 @@ public class RestaurantDAO implements RestaurantDAOInterface {
 			while(rs.next()) {
 				if(restaurantDTO == null) {
 					restaurantDTO = new RestaurantDTO();
+					restaurantDTO.setRes_id(rs.getString("RES_ID"));
 					restaurantDTO.setWish_count(rs.getInt("WISH_COUNT"));
 					restaurantDTO.setRes_name(rs.getString("RES_NAME"));
 					restaurantDTO.setRes_tel(rs.getString("RES_TEL"));
@@ -206,6 +207,7 @@ public class RestaurantDAO implements RestaurantDAOInterface {
 			while(rs.next()) {
 				if(restaurantDTO == null) {
 					restaurantDTO = new RestaurantDTO();
+					restaurantDTO.setRes_id(rs.getString(2));
 					restaurantDTO.setWish_count(rs.getInt("WISH_COUNT"));
 					restaurantDTO.setRes_name(rs.getString("RES_NAME"));
 					restaurantDTO.setRes_tel(rs.getString("RES_TEL"));
