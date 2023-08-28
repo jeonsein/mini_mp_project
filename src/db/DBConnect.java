@@ -8,13 +8,13 @@ public class DBConnect {
 	private static DBConnect db = new DBConnect();
 	private Connection conn = null;
 	
-	String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
 	String user = "mango";
 	String password = "mango";
 	
 	private DBConnect() {
 		
-		// 드라이버클래스 JVM에 로드
+		// 드라이버 클래스 JVM에 로드
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 			System.out.println("JDBC드라이버 로드성공");
