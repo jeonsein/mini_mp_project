@@ -89,17 +89,22 @@ public class RestaurantService {
 			if(select == 0) {
 				break;
 			} else if(select == 1) {
-				String wish_res_id = resDAO.selectRegionRes(regionNum, select).getRes_id();
-				
-				try {
-					wishlistDAO.addWish(loggedInUserId, wish_res_id);
-					
-					System.out.println("찜 리스트에 추가되었습니다!");
-				} catch (Exception e) {
-					System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
-				} // try-catch
-				
+			    String wish_res_id = resDAO.selectRegionRes(regionNum, select).getRes_id();
+			    
+			    try {
+			    	
+			        if (wishlistDAO.isAlreadyWished(loggedInUserId, wish_res_id)) {
+			            System.out.println("찜 목록에 이미 등록되어 있습니다!");
+			        } else {
+			            wishlistDAO.addWish(loggedInUserId, wish_res_id);
+			            System.out.println("찜 리스트에 추가되었습니다!");
+			        } // if-else
+			        
+			    } catch (Exception e) {
+			        System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
+			    } // try-catch
 			} // if-else
+			
 		} // while
 	} // regionSelect()
 	
@@ -139,17 +144,22 @@ public class RestaurantService {
 			if(select == 0) {
 				break;
 			} else if(select == 1) {
-				String wish_res_id = resDAO.selectWishRes(wish_n).getRes_id();
+			    String wish_res_id = resDAO.selectWishRes(wish_n).getRes_id();
 			    
-				try {
-			        wishlistDAO.addWish(loggedInUserId, wish_res_id);  // 여기에서도 addWish 메서드를 호출합니다.
+			    try {
 			        
-			        System.out.println("찜 리스트에 추가되었습니다!");
+			    	if (wishlistDAO.isAlreadyWished(loggedInUserId, wish_res_id)) {
+			            System.out.println("찜 목록에 이미 등록되어 있습니다!");
+			        } else {
+			            wishlistDAO.addWish(loggedInUserId, wish_res_id);
+			            System.out.println("찜 리스트에 추가되었습니다!");
+			        } // if-else
+			    	
 			    } catch (Exception e) {
 			        System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
 			    } // try-catch
+			}
 			
-			} // if-else
 		} // while
 	} // wishBestSelect()
 	

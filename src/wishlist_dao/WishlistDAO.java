@@ -3,6 +3,7 @@ package wishlist_dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import lombok.extern.log4j.Log4j2;
 import wishlist_dto.WishlistDTO;
@@ -65,5 +66,48 @@ public class WishlistDAO implements WishlistDAOInterface {
 		} // try-catch
 
 	} // addWish()
+	
+//	--------------------------------------------------------------------------------
+	
+	// 위시리스트에 이미 추가되어있는지 아닌지를 확인하는 메소드
+	@Override
+	public boolean isAlreadyWished(String userId, String resId) throws Exception {
+	    
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String user = "mango";
+		String password = "mango";
+	    
+	    String checkSQL = "SELECT COUNT(*) FROM wish_list WHERE id = ? AND res_id = ?";
+	    
+	    try {
+	        conn = DriverManager.getConnection(url, user, password);
+	        
+	        pstmt = conn.prepareStatement(checkSQL);
+	        pstmt.setString(1, userId);
+	        pstmt.setString(2, resId);
+	        
+	        rs = pstmt.executeQuery();
+	        
+	        // 이미 wish_list에 있다면 true, 아니라면 false 반환
+	        if (rs.next()) {
+	            int count = rs.getInt(1);
+	            
+	            return count > 0;
+	        }
+	        
+	    } catch (Exception e) {
+	        throw new Exception("찜 리스트 조회를 실패하였습니다.: " + e.getMessage());
+	    } finally {
+	    	rs.close();
+	    	pstmt.close();
+	    	conn.close();
+	    } // try-catch-finally
+	    
+	    return false;
+	}
 
 } // end class
