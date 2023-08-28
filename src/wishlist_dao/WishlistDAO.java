@@ -90,6 +90,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 		String user = "mango";
 		String password = "mango";
 	    
+		// 카운트 함수 사용해서 해당 레코드 수 반환!!
 	    String isAlreadyWishedSQL = "SELECT COUNT(*) FROM wish_list WHERE id = ? AND res_id = ?";
 	    
 	    try {
@@ -104,8 +105,10 @@ public class WishlistDAO implements WishlistDAOInterface {
 	        
 	        // 이미 wish_list에 있다면 true, 아니라면 false 반환
 	        if (rs.next()) {
+	        	// ResultSet의 현재 레코드에서 첫 번째 컬럼의 값 (= count(*)의 결과) 
 	            int count = rs.getInt(1);
 	            
+	            // SQL 구문 실행 후 카운트 변수가 0보다 크면 -> 해당 데이터가 이미 db에 존재함 = 중복!
 	            return count > 0;
 	        } // if
 	        
