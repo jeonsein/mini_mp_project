@@ -10,87 +10,135 @@ import member.Member_DTO;
 
 public class MainService {
 
+	Scanner s = new Scanner(System.in);
+
+	private static Member_DTO loginedMember;
+
+	String user_id;
+
 	/**
 	 * 프로그램 시작 메서드
 	 */
 	public void start() {
-		Scanner s = new Scanner(System.in);
-		int userInput = 0; // 사용자의 입력을 저장할 변수
-//		Member_DAO member_DAO = new Member_DAO();
 
-		while (userInput != 3) {
+		Scanner s = new Scanner(System.in);
+		int userInput = 100;
+
+		while (userInput != 0) {
 			System.out.println("1. 로그인");
 			System.out.println("2. 회원가입");
 			System.out.println("3. 종료");
 
+			userInput = Integer.parseInt(s.nextLine());
+
 			try {
-				userInput = s.nextInt();
-				// 사용자가 123이 아닌 문자를 입력했거나 다른걸 입력했으면 다시 메뉴 화면 띄우기
 				if (userInput == 1) {
-					// 로그인 기능
+					
+					while(true) {
+						int temp_login = user_login();
+						if(temp_login != 0) { //0이면 반복 그외에는 탈출
+							break;
+						}
+					}
+					while(true) {
+						
+					}
+
+					
+
 				} else if (userInput == 2) {
 					signIn();
-
 				} else if (userInput == 3) {
-					System.exit(0); // 3번을 누르면 프로그램 종료
+					System.exit(0);
 				}
-			} catch (InputMismatchException e) {
+			} catch (NumberFormatException e) {
 				System.out.println("잘못 누르셨습니다.");
 				System.out.println("1,2,3 메뉴중 숫자를 선택하세요.");
 				start();
 			}
 
 		}
+
 	}
 
 	/**
 	 * 회원가입 메서드
 	 */
-	public Member_DTO signIn() {
+	public void signIn() {
 		Member_DTO member_DTO = new Member_DTO(); // 사용자가 입력한 정보들을 모아 놓을 DTO 클래스
-		String user_id; // id
-		int pwd;		// pwd
-		String user_name; // name
-		int region_number; // 사용자 지역 코드
-		String user_tel; // 입력받은 사용자 전화번호
-		
-		
+		Member_DAO member_DAO = new Member_DAO();
+
+		int pwd = 0; // pwd
+		String user_name = null; // name
+		int region_number = 0; // 사용자 지역 코드
+		String user_tel = null; // 입력받은 사용자 전화번호
+
 		System.out.println(">>> 회원 가입 <<<");
 		System.out.println("정보를 입력해 주세요.");
-		user_id = check_Id(); //검증받은 사용자 ID 대입
-		pwd = check_pwd();
-		user_name = checkName();
-		region_number = checkRegion();
-		user_tel = checkTel();
+		while (true) { // id 가 중복되면
+			user_id = check_Id(); // 검증받은 사용자 ID 대입 [id가 중복되면 null을 리턴받는다.] id가 중복되지 않으면 2를 리턴받음
+
+			if (user_id != null) {
+				break;
+			}
+
+		}
+
+		while (true) {
+			pwd = check_pwd(); // 이상하게 입력하면 0을 리턴한다. 정상입력하면 숫자가 리턴됨
+			if (pwd != 0) {
+				break;
+			}
+		}
+
+		while (true) {
+			user_name = checkName();
+			if (user_name != null) {
+				break;
+			}
+
+		}
+		while(true) {
+			region_number = checkRegion();
+			if(region_number != 0) {
+				break;
+			}
+		}
+		while(true) {
+			user_tel = checkTel(); //전화번호가 중복되면 null , 그 외에는 값을 받음
+			if(user_tel != null) {
+				break;
+			}
+			
+		}
+
 		
 		
-		member_DTO.setId(user_id); //MEMBER_DTO 객체에 대입
+
+		member_DTO.setId(user_id); // MEMBER_DTO 객체에 대입
 		member_DTO.setPwd(pwd);
 		member_DTO.setName(user_name);
 		member_DTO.setRegion_name(region_number);
 		member_DTO.setTel(user_tel);
-		
-		return member_DTO;
+
+		member_DAO.Sign_user_in_table(member_DTO); // DAO에 회원가입 요청
 	}
 
 	// ID가 중복되었는지 찾으면서 ID 값을 리턴하게 한다. (String 타입)
 	public String check_Id() {
 		Member_DAO member_DAO = new Member_DAO();
-
-		Scanner s = new Scanner(System.in);
-		String user_id; // 사용자가 입력한 ID를 저장할 변수
-
 		System.out.print("아이디 : ");
 		user_id = s.nextLine();
 		int check_id = member_DAO.Id_duplicate_check(user_id); // id 중복검사 리턴은 1,2를 하는데 1 은 id 있음, 2는 id 없음
 		if (check_id == 1) {
 			System.out.println("아이디가 존재합니다. 다시 입력해 주세요");
-			check_Id();
-		} else if (check_id == 2) {
-			System.out.println("사용 가능한 아이디입니다.");
 
+			return null; // id가 중복되면 null을 리턴한다.
+		} else {
+			System.out.println("사용 가능한 아이디입니다.");
+			System.out.println("리턴된 user_id" + user_id);
+			return user_id;
 		}
-		return user_id;
 
 	}
 
@@ -107,10 +155,7 @@ public class MainService {
 
 		} catch (InputMismatchException e) {
 			System.out.println("9자리이하 숫자만 입력 가능합니다.");
-			check_pwd();
-		} catch (ArithmeticException e) {
-			System.out.println("9자리이하 숫자만 입력 가능합니다.");
-			check_pwd();
+			return 0;
 		}
 
 		return user_pwd;
@@ -124,62 +169,111 @@ public class MainService {
 		try {
 			System.out.print("이름 : ");
 			user_name = s.nextLine();
-			if(user_name.length() > 4 )
-			{
+			if (user_name.length() > 4) {
 				throw new Exception();
 			}
 		} catch (Exception e) {
 			System.out.println("4자리 이하 한글만 입력하세요");
-			checkName();
+//			checkName();
+			return null;
 		}
 
 		return user_name;
 	}
-	
+
 	// 지역 코드 검증 메서드
 	public int checkRegion() {
 		Scanner s = new Scanner(System.in);
 		Member_DAO member_DAO = new Member_DAO();
-		int user_region=0;
+		int user_region = 0;
 		try {
-			System.out.print("지역 번호를 선택해주세요.");
+			System.out.println("지역 번호를 선택해주세요.");
 			List<RegionDTO> list = member_DAO.show_region_list();
 			for (RegionDTO regionDTO : list) {
 				System.out.println(regionDTO.getRegion_code() + regionDTO.getRegion_name());
-			} //지역 테이블 리스트 출력
+			} // 지역 테이블 리스트 출력
 			System.out.print("선택 : ");
 			user_region = s.nextInt();
-			
-			if(user_region > 6) throw new Exception();
-			
-			
+
+			if (user_region > 6)
+				throw new Exception();
+
 		} catch (Exception e) {
 			System.out.println("범위에 맞는 숫자만 입력하십시오");
-			checkRegion();
+			return 0;
 		}
 		return user_region;
 	}
-	
-	//전화번호 검증 메서드
+
+	// 전화번호 검증 메서드
 	/**
-	 * 전화번호는 VARCHAR2(20 BYTE)
-	 * 숫자로만 입력하도록 사용자한테 말해야한다.
-	 * 문자가 입력되면 다시 입력받도록 한다.
+	 * 전화번호는 VARCHAR2(20 BYTE) 숫자로만 입력하도록 사용자한테 말해야한다. 문자가 입력되면 다시 입력받도록 한다.
 	 */
 	public String checkTel() {
+		Member_DAO member_DAO = new Member_DAO();
 		Scanner s = new Scanner(System.in);
 		String user_tel = null;
-		
-		try {
-			System.out.print("전화번호 : ");
-			 user_tel = s.nextLine();
-		} catch (Exception e) {
-			System.out.println("숫자만 입력하세요");
-			checkTel();
-		}
-		return user_tel;
-	}
-	
-	
+		int checkTel = 0;
 
+		System.out.print("전화번호(숫자로만 입력하세요) : ");
+		user_tel = s.nextLine();
+		checkTel = member_DAO.Tel_duplicate_check(user_tel);
+
+		if (checkTel == 1) {
+			System.out.println("전화번호가 중복됩니다. 다시입력하세요");
+
+			return null;
+		} else if (checkTel == 2) {
+			System.out.println("유효한 전화번호 입니다.");
+		}
+
+		return user_tel;
+
+	}
+
+	/**
+	 * 로그인 메서드
+	 */
+	public int user_login() {
+		Scanner s = new Scanner(System.in);
+		Member_DAO member_DAO = new Member_DAO();
+		String user_id; // 사용자에게 입력을 받을 ID
+		int check_id = 0; // 테이블에 있는 아이디인지 검사
+		int user_pwd = 0; // 사용자에게 입력을 받을 pwd
+		int checkPwd = 0; // 비밀번호 일치하는지 안하는지 기억시킬 임시변수
+
+		// 로그인에 따른 정수값 리턴
+		// 로그인 성공 1
+		// 로그인 실패 0
+		int checkLogin;
+
+		System.out.println("로그인 화면입니다.");
+		System.out.println();
+		System.out.print("아이디 : ");
+		user_id = s.nextLine();
+		check_id = member_DAO.Id_duplicate_check(user_id); // 테이블에 있는 아이디인지 검사
+		if (check_id == 1) {
+
+			user_pwd = check_pwd();
+			checkPwd = member_DAO.CheckPwd(user_pwd); // 비밀번호가 일치하지 않다면 1을 리턴, 비밀번호가 일치한다면 2를 리턴
+
+			if (checkPwd == 1) {
+				System.out.println("로그인 성공");
+				loginedMember = new Member_DTO();
+				loginedMember.setId(user_id);
+				System.out.println(loginedMember.getId() + "님 환영합니다");
+				return 1;
+			} else{
+				System.out.println("비밀번호가 일치하지 않습니다!. 다시 입력해 주세요");
+				return 0;
+			}
+
+		} else{
+			System.out.println("아이디가 존재하지 않습니다. 다시 입력해 주세요");
+			return 0;
+
+		}
+
+
+	}
 }

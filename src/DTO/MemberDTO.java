@@ -1,3 +1,4 @@
+package DTO;
 public class MemberDTO {
 
 	private String id;
@@ -5,6 +6,10 @@ public class MemberDTO {
 	private String name;
 	private String tel;
 	private String region_code;
+	
+	public MemberDTO() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public String getId() {
 		return id;

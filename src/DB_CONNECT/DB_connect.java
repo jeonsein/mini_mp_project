@@ -8,10 +8,11 @@ import java.sql.SQLException;
 
 public class DB_connect {
 
-//db 연결을 객체로 만들자
+	// db 연결을 객체로 만들자
 	public Connection conn = null; // 데이터베이스 연결을 관리하기 위한 객체
 
 	public void db_connection() {
+
 		try {
 			Class.forName("oracle.jdbc.OracleDriver"); // JVM애 jdbc드라이버 로드
 		} catch (ClassNotFoundException e) {
@@ -32,4 +33,5 @@ public class DB_connect {
 		}
 
 	}
+
 }
