@@ -7,52 +7,40 @@ import wishlist_dao.WishlistDAO;
 
 @Log4j2
 public class TestMain {
+// WishlistDAO의 메소드를 호출하는 메인 클래스	
 	
-	private MemberDTO loginedMember;
+    private static String loggedInUserId;
 
-	public static void main(String[] args) {
-		
-		Scanner sc = new Scanner(System.in);
-		
-		log.info("id입력: ");
-		String id = sc.nextLine();
-		
-		MemberDTO mdto = new MemberDTO();
-		mdto.setId(id);
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-		
-//		MemberDTO mdto = new MemberDTO("user1", 5555);
-//		String storeid = mdto.getId();
-		
-		log.info("storeid" + storeid);
-
-		WishlistDAO wd = new WishlistDAO();
-		wd.addWish("mango", 9);
-		
-		/*
-		Scanner sc = new Scanner(System.in);
-		
-        System.out.println("id 입력:");
+        System.out.println("아이디 입력: ");
         String userId = sc.nextLine();
-        // 로그인 로직 (생략)
-        
-        System.out.println("조회할 식당 번호 입력:");
+
+        // 로그인 로직 ~~
+        loggedInUserId = userId;
+
+        System.out.println("식당의 번호를 선택해주세요.");
         int rowNum = sc.nextInt();
-        
-        // 해당 rowNum으로 res_id 조회 로직 (생략)
-        int resId = ...; // 조회된 resId
-        
+
         WishlistDAO wishlistDAO = new WishlistDAO();
-        
-        if (wishlistDAO.addWish(userId, resId)) {
-            System.out.println("찜 성공!");
-        } else {
-            System.out.println("찜 실패");
+        int resId = wishlistDAO.getResIdByRowNum(rowNum);
+
+        if (resId == -1) {
+        	log.info("해당 식당에 대한 정보를 찾는데 실패했습니다.");
+//            System.out.println("해당 식당에 대한 정보를 찾는데 실패했습니다.");
+            return;
         }
-        
-		*/
-		
-		
-	} // end main
+
+        try {
+            wishlistDAO.addWish(loggedInUserId, resId);
+            log.info("찜 목록 추가 성공하였습니다!");
+//            System.out.println("찜 목록 추가 성공하였습니다!");
+        } catch (Exception e) {
+        	log.info("찜 목록 추가 실패하였습니다. " + e.getMessage());
+//            System.out.println("찜 목록 추가 실패하였습니다. " + e.getMessage());
+        } // try-catch
+    
+    } // end main
 
 } // end class
