@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 import lombok.extern.log4j.Log4j2;
-import member_dto.MemberDTO;
 import wishlist_dao.WishlistDAO;
 
 
@@ -12,6 +11,7 @@ public class TestMain {
     private static String loggedInUserId;
 
     public static void main(String[] args) {
+    	
         Scanner sc = new Scanner(System.in);
 
         System.out.println("아이디 입력: ");
@@ -24,21 +24,22 @@ public class TestMain {
         int rowNum = sc.nextInt();
 
         WishlistDAO wishlistDAO = new WishlistDAO();
+       
         int resId = wishlistDAO.getResIdByRowNum(rowNum);
 
         if (resId == -1) {
         	log.info("해당 식당에 대한 정보를 찾는데 실패했습니다.");
-//            System.out.println("해당 식당에 대한 정보를 찾는데 실패했습니다.");
+        	
             return;
-        }
+        } else if(resId == 12) {
+            System.out.println("찜 목록 추가 성공하였습니다!");
+        } // if-else
 
         try {
             wishlistDAO.addWish(loggedInUserId, resId);
             log.info("찜 목록 추가 성공하였습니다!");
-//            System.out.println("찜 목록 추가 성공하였습니다!");
         } catch (Exception e) {
         	log.info("찜 목록 추가 실패하였습니다. " + e.getMessage());
-//            System.out.println("찜 목록 추가 실패하였습니다. " + e.getMessage());
         } // try-catch
     
     } // end main
