@@ -145,66 +145,6 @@ public class RestaurantService {
 		
 		ResSer.restaurantList();
 		
-		
-		
-		
-	
-//		RestaurantDAO resDAO = new RestaurantDAO();
-//		RestaurantDTO resDTO = new RestaurantDTO();
-//
-//		List<RestaurantDTO> list = new ArrayList<>();
-//
-//		
-//		// 찜 많은 순에서 선택 식당 보기
-//		System.out.println("------ 찜 많은 순에서 선택 식당 보기");
-//		resDTO = resDAO.selectWishRes(1);
-//
-//		System.out.println(resDTO.getWish_count());
-//		System.out.println(resDTO.getRes_name());
-//		System.out.println(resDTO.getRes_tel());
-//		int num1 = 1;
-//		for (MenuDTO menu : resDTO.getMenuList()) {
-//			System.out.println(num1 + ". " + menu);
-//			num1++;
-//		}
-//		System.out.println(resDTO.getLocation());
-//		System.out.println(resDTO.getRes_info()+"\n");
-//		
-//		// 지역 순에서 원하는 식당 보기
-//		System.out.println("------ 지역 순에서 원하는 식당 보기");
-//		resDTO = resDAO.selectRegionRes(1, 1);
-//		System.out.println(resDTO.getWish_count());
-//		System.out.println(resDTO.getRes_name());
-//		System.out.println(resDTO.getRes_tel());
-//		int num2 = 1;
-//		for (MenuDTO menu : resDTO.getMenuList()) {
-//			System.out.println(num2 + ". " + menu);
-//			num2++;
-//		}
-//		System.out.println(resDTO.getLocation());
-//		System.out.println(resDTO.getRes_info()+"\n");
-//	
-//		// 찜 많은 순으로 보기
-//		System.out.println("------ 찜 많은 순으로 보기");
-//		list = resDAO.wishBestSelect();
-//		int num3 = 1;
-//		for(RestaurantDTO res : list) {
-//			System.out.println(num3 + ". " + res);
-//			num3++;
-//		}
-//		
-//		System.out.println();
-//		
-//		// 지역별 맛집 리스트 보기
-//		System.out.println("------ 지역별 맛집 리스트 보기");
-//		list = resDAO.regionSelect(1);
-//		int num4 = 1;
-//		for(RestaurantDTO res : list) {
-//			System.out.println(num4 + ". " + res);
-//			num4++;
-//		}
-//		
 	}
-	
 	
 }
