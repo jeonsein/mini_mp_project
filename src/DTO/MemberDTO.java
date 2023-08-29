@@ -1,11 +1,19 @@
-package member_dto;
+package DTO;
 public class MemberDTO {
-
+	//커밋
 	private String id;
-	private String pwd;
+	private int pwd;
 	private String name;
 	private String tel;
-	private String region_code;
+	private int region_code;
+	
+	public MemberDTO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public MemberDTO(String id) {
+		this.id = id;
+	}
 	
 	public String getId() {
 		return id;
@@ -15,11 +23,11 @@ public class MemberDTO {
 		this.id = id;
 	}
 	
-	public String getPwd() {
+	public int getPwd() {
 		return pwd;
 	}
 	
-	public void setPwd(String pwd) {
+	public void setPwd(int pwd) {
 		this.pwd = pwd;
 	}
 	
@@ -38,12 +46,12 @@ public class MemberDTO {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	
-	public String getRegion_code() {
+			
+	public int getRegion_code() {
 		return region_code;
 	}
 	
-	public void setRegion_code(String region_code) {
+	public void setRegion_code(int region_code) {
 		this.region_code = region_code;
 	}
 

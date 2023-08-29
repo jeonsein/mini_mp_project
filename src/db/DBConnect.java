@@ -1,10 +1,11 @@
+
 package db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DBConnect {
-
+	//커밋
 	private static DBConnect db = new DBConnect();
 	private Connection conn = null;
 	
