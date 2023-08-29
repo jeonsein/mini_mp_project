@@ -3,6 +3,7 @@ package wishlist_dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import lombok.extern.log4j.Log4j2;
 import wishlist_dto.WishlistDTO;
@@ -24,6 +25,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 		} // try-catch
 
 		Connection conn = null;
+		PreparedStatement pstmt = null;
 
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String user = "mango";
@@ -61,9 +63,64 @@ public class WishlistDAO implements WishlistDAOInterface {
 			addWishCount_Pstmt.executeUpdate();
 
 		} catch (Exception e) {
-			throw new Exception("찜하기 실패: " + e.getMessage());
-		} // try-catch
+			throw new Exception("찜 리스트에 추가하지 못했습니다.: " + e.getMessage());
+		}  finally {
+			
+	        try {
+	            if (pstmt != null) pstmt.close();
+	            if (conn != null) conn.close();
+	        } catch (Exception e) {
+	            log.error("error invoked. ", e);
+	        } // try-catch
+	    } // try-catch-finally
 
 	} // addWish()
+	
+//	--------------------------------------------------------------------------------
+	
+	// 위시리스트에 이미 추가되어있는지 아닌지를 확인하는 메소드
+	@Override
+	public boolean isAlreadyWished(WishlistDTO wishlistDTO) throws Exception {
+	    
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String user = "mango";
+		String password = "mango";
+	    
+		// 카운트 함수 사용해서 해당 레코드 수 반환!!
+	    String isAlreadyWishedSQL = "SELECT COUNT(*) FROM wish_list WHERE id = ? AND res_id = ?";
+	    
+	    try {
+	        conn = DriverManager.getConnection(url, user, password);
+	        
+	        pstmt = conn.prepareStatement(isAlreadyWishedSQL);
+	        
+	        pstmt.setString(1, wishlistDTO.getId());
+	        pstmt.setString(2, wishlistDTO.getRes_id());
+	        
+	        rs = pstmt.executeQuery();
+	        
+	        // 이미 wish_list에 있다면 true, 아니라면 false 반환
+	        if (rs.next()) {
+	        	// ResultSet의 현재 레코드에서 첫 번째 컬럼의 값 (= count(*)의 결과) 
+	            int count = rs.getInt(1);
+	            
+	            // SQL 구문 실행 후 카운트 변수가 0보다 크면 -> 해당 데이터가 이미 db에 존재함 = 중복!
+	            return count > 0;
+	        } // if
+	        
+	    } catch (Exception e) {
+	        throw new Exception("찜 리스트 조회를 실패하였습니다.: " + e.getMessage());
+	    } finally {
+	    	rs.close();
+	    	pstmt.close();
+	    	conn.close();
+	    } // try-catch-finally
+	    
+	    return false;
+	} // isAlreadyWished()
 
 } // end class
