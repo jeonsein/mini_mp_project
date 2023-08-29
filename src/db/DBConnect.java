@@ -9,7 +9,7 @@ public class DBConnect {
 	private static DBConnect db = new DBConnect();
 	private Connection conn = null;
 	
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 	String user = "mango";
 	String password = "mango";
 	
