@@ -1,4 +1,4 @@
-package member;
+package dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import DB_CONNECT.DB_connect;
-import DTO.MemberDTO;
-import region_dto.RegionDTO;
+import db_connect.DB_connect;
+import dto.MemberDTO;
+import dto.RegionDTO;
 
 public class Member_DAO implements Member_Interface {
 

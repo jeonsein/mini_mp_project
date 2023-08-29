@@ -2,8 +2,8 @@ package service;
 
 import java.util.Scanner;
 
-import DTO.MemberDTO;
-import MemberInformation.MemberInformationDAO;
+import dao.MemberInformationDAO;
+import dto.MemberDTO;
 
 public class pro {
 	public int memberInformation(MemberDTO loginedId) {

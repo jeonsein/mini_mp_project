@@ -1,4 +1,4 @@
-package menu_dao;
+package dao;
 
 import java.util.Vector;
 

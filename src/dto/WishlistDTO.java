@@ -1,4 +1,4 @@
-package wishlist_dto;
+package dto;
 
 
 public class WishlistDTO {

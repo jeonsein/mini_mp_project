@@ -1,4 +1,4 @@
-package region_dto;
+package dto;
 
 public class RegionDTO {
 

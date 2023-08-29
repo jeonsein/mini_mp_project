@@ -1,4 +1,4 @@
-package MemberInformation;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -200,7 +200,6 @@ public class MemberInformationDAO {
 		return;
 	}
 	
-	
 	//찜삭제
 	public void DeleteWishList(String res_id,String id ) {
 		
@@ -214,7 +213,6 @@ public class MemberInformationDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		
 	}
 }

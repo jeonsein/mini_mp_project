@@ -1,4 +1,4 @@
-package region_dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Vector;
 
 import db.DBConnect;
-import region_dto.RegionDTO;
+import dto.RegionDTO;
 
 public class RegionDAO implements RegionDAOInterface {
 
