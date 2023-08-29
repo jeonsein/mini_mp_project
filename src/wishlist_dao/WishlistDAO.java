@@ -9,7 +9,6 @@ import lombok.extern.log4j.Log4j2;
 import wishlist_dto.WishlistDTO;
 
 
-@Log4j2
 public class WishlistDAO implements WishlistDAOInterface {
 	// 찜하기 기능의 인터페이스를 정의함!
 
@@ -18,7 +17,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
-			log.info("addWish()_JDBC 드라이버 로드 성공 :-)");
+//			log.info("addWish()_JDBC 드라이버 로드 성공 :-)");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return; // void로 선언된 method는 return;으로 종료 가능
@@ -42,7 +41,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 		try {
 
 			conn = DriverManager.getConnection(url, user, password);
-			log.info("addWish() invoked.");
+//			log.info("addWish() invoked.");
 
 			PreparedStatement addWish_Pstmt = conn.prepareStatement(addWishSQL);
 			PreparedStatement addWishCount_Pstmt = conn.prepareStatement(addWishCountSQL);
@@ -70,7 +69,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 	            if (pstmt != null) pstmt.close();
 	            if (conn != null) conn.close();
 	        } catch (Exception e) {
-	            log.error("error invoked. ", e);
+//	            log.error("error invoked. ", e);
 	        } // try-catch
 	    } // try-catch-finally
 
