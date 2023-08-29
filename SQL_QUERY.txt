@@ -41,7 +41,7 @@ CREATE TABLE wish_list(
     id VARCHAR2(20 BYTE),
     CONSTRAINT complex_key PRIMARY KEY(res_id, id),
     CONSTRAINT fr_key1 FOREIGN KEY(res_id) REFERENCES restaurant(res_id),
-    CONSTRAINT fr_key2 FOREIGN KEY(id) REFERENCES member(id)
+    CONSTRAINT fr_key2 FOREIGN KEY(id) REFERENCES member(id) ON DELETE CASCADE
 );
 
 -- ----------------------------------------------------------
