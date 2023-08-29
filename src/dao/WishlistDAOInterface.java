@@ -1,6 +1,6 @@
-package wishlist_dao;
+package dao;
 
-import wishlist_dto.WishlistDTO;
+import dto.WishlistDTO;
 
 public interface WishlistDAOInterface {
 // WishlistDAOInterface를 구현하여 실제 데이터베이스 작업을 수행!

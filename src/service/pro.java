@@ -2,10 +2,11 @@ package Service;
 
 import java.util.Scanner;
 
-import MemberInformation.MemberInformationDAO;
+import dao.MemberInformationDAO;
+import dto.MemberDTO;
 
 public class pro {
-	public static void main(String[] args) {
+	public int memberInformation(MemberDTO loginedId) {
 		
 	
 	//public static void MemberInformation() {
@@ -16,24 +17,24 @@ public class pro {
 
 		System.out.println("회원 정보 수정");
 		System.out.println("=====나의 정보=====");
-		dao.ShowMember("joon");
+		dao.ShowMember(loginedId.getId());
 
 		while (true) {
 			System.out.println("=================");
-			System.out.println("작업 선택하세요 : 뒤로가기 - 0, 비밀번호 변경 - 1, 이름 변경 - 2, "
+			System.out.println("작업 선택하세요 : 로그아웃 - 0, 비밀번호 변경 - 1, 이름 변경 - 2, "
 					+ "전화번호 변경 - 3, 주소 변경 - 4,회원 탈퇴-5, 찜한 식당 확인하기 -6  ");
 			String opt = sc.nextLine();
 			// 뒤로 가기
 
 			if (opt.equals("0")) {
-
+				return 1;
 				// 비밀번호 변경
 			} else if (opt.equals("1")) {
 				System.out.println("바꿀 비밀번호를 입력하세요");
 				int opt1 = sc.nextInt();
 				sc.nextLine(); // 개행 문자 소비
 
-				dao.UpdatePwd(opt1, "jea");
+				dao.UpdatePwd(opt1, loginedId.getId());
 
 				System.out.println("비밀번호가 변경되었습니다.");
 
@@ -42,7 +43,7 @@ public class pro {
 			} else if (opt.equals("2")) {
 				System.out.println("바꿀 이름을 입력하세요");
 				String opt1 = sc.nextLine();
-				dao.UpdateName("jea", opt1);
+				dao.UpdateName(loginedId.getId(), opt1);
 
 				System.out.println("이름이 성공적으로 변경되었습니다.");
 
@@ -50,7 +51,7 @@ public class pro {
 			} else if (opt.equals("3")) {
 				System.out.println("바꿀 번호를 입력하세요");
 				String opt1 = sc.nextLine();
-				dao.UpdateTel("jea", opt1);
+				dao.UpdateTel(loginedId.getId(), opt1);
 
 				System.out.println("번호가 성공적으로 변경되었습니다.");
 
@@ -61,7 +62,7 @@ public class pro {
 				int opt1 = sc.nextInt();
 				sc.nextLine();
 
-				dao.UpdateReg(opt1, "jea");
+				dao.UpdateReg(opt1, loginedId.getId());
 
 				System.out.println("지역번호가 성공적으로 변경되었습니다.");
 				// sc.nextLine(); // 개행 문자 소비
@@ -73,7 +74,7 @@ public class pro {
 				// 정보 삭제되면서, 처음화면으로
 				if (opt1.equals("1")) {
 
-					dao.DeleteMember("joon");
+					dao.DeleteMember(loginedId.getId());
 
 					System.out.println("탈퇴 되었습니다, 감사합니다.");
 					// 회원탈톼후 루프 종료
@@ -91,13 +92,13 @@ public class pro {
 				System.out.println("======찜한 식당======");
 
 				if (opt1.equals("0")) {
-					dao.ShowWishList("jea");
+					dao.ShowWishList(loginedId.getId());
 					System.out.println("불러오기 성공");
 				}
 				if (opt1.equals("1")) {
 					System.out.println("삭제할 레스토랑 아이디를 적으십시오.");
 					String opt2 = sc.nextLine();
-					dao.DeleteWishList(opt2, "jea");
+					dao.DeleteWishList(opt2, loginedId.getId());
 					System.out.println("찜삭제 성공");
 				}
 			} else {

@@ -1,7 +1,8 @@
-package region_dao;
+package dao;
 
 import java.util.List;
-import region_dto.RegionDTO;
+
+import dto.RegionDTO;
 
 public interface RegionDAOInterface {
 

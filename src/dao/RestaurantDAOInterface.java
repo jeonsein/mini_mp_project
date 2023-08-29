@@ -1,9 +1,9 @@
-package restaurant_dao;
+package dao;
 
 import java.util.List;
 import java.util.Vector;
 
-import restaurant_dto.RestaurantDTO;
+import dto.RestaurantDTO;
 
 public interface RestaurantDAOInterface {
 	

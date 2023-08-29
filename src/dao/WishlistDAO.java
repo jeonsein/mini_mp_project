@@ -1,15 +1,17 @@
-package wishlist_dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import lombok.extern.log4j.Log4j2;
-import wishlist_dto.WishlistDTO;
+import dto.WishlistDTO;
 
 
+<<<<<<< HEAD:src/wishlist_dao/WishlistDAO.java
 //@Log4j2
+=======
+>>>>>>> ee73766267e1f2d4826f869a80de700e41c7df8d:src/dao/WishlistDAO.java
 public class WishlistDAO implements WishlistDAOInterface {
 	// 찜하기 기능의 인터페이스를 정의함!
 

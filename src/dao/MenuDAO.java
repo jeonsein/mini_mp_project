@@ -1,4 +1,4 @@
-package menu_dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import db.DBConnect;
-import menu_dto.MenuDTO;
+import dto.MenuDTO;
 
 public class MenuDAO implements MenuDAOInterface{
 	
