@@ -7,6 +7,8 @@ public class MemberDTO {
 	private String name;
 	private String tel;
 	private int region_code;
+	
+	public MemberDTO() {};
 
 	public MemberDTO(String id, int pwd, String name, String tel, int region_code) {
 		super();
@@ -20,6 +22,10 @@ public class MemberDTO {
 	public MemberDTO (String id, int pwd) {
 		this.id = id;
 		this.pwd = pwd;
+	}
+	
+	public MemberDTO (String id) {
+		this.id = id;
 	}
 	
 	public String getId() {

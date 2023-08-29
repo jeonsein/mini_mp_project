@@ -1,6 +1,9 @@
 package wishlist_dto;
 
+//import lombok.Data;
 
+
+//@Data
 public class WishlistDTO {
 
 	private String res_id;
@@ -22,4 +25,4 @@ public class WishlistDTO {
 		this.id = id;
 	}
 	
-}
+} // end class

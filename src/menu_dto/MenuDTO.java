@@ -3,7 +3,7 @@ public class MenuDTO {
 
 	private String menu_name;
 	private String menu_price;
-	private int region_code;
+	private int res_id;
 	
 	public MenuDTO() {
 		
@@ -26,18 +26,21 @@ public class MenuDTO {
 	public void setMenu_price(String menu_price) {
 		this.menu_price = menu_price;
 	}
-	public int getRegion_code() {
-		return region_code;
+
+
+	public int getRes_id() {
+		return res_id;
 	}
-	public void setRegion_code(int region_code) {
-		this.region_code = region_code;
+
+	public void setRes_id(int res_id) {
+		this.res_id = res_id;
 	}
 
 	@Override
 	public String toString() {
 		
 		
-		return menu_name + " / " + menu_price;
+		return menu_name + " " + menu_price;
 	}
 	
 	
