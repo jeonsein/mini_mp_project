@@ -1,4 +1,4 @@
-package service;
+package Service;
 
 import java.util.Scanner;
 
@@ -91,13 +91,13 @@ public class pro {
 				System.out.println("======찜한 식당======");
 
 				if (opt1.equals("0")) {
-					dao.ShowWishList("mango");
+					dao.ShowWishList("jea");
 					System.out.println("불러오기 성공");
 				}
 				if (opt1.equals("1")) {
 					System.out.println("삭제할 레스토랑 아이디를 적으십시오.");
 					String opt2 = sc.nextLine();
-					dao.DeleteWishList(opt2, "mango");
+					dao.DeleteWishList(opt2, "jea");
 					System.out.println("찜삭제 성공");
 				}
 			} else {
