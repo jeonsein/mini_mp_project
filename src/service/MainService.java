@@ -54,15 +54,12 @@ public class MainService {
 							resService.restaurantList();
 
 						} else if (userInput == 2) {
-							// 준택이형 코드
-							while (true) {
-
+						
 								int temp;
 								temp = Pro.memberInformation(loginedMember);
 								if (temp == 1) {
 									break;
 								}
-							}
 						}
 					}
 
