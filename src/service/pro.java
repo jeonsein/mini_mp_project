@@ -7,12 +7,11 @@ import dto.MemberDTO;
 
 public class pro {
 	public int memberInformation(MemberDTO loginedId) {
-		
-	
-	//public static void MemberInformation() {
-		
+
+		// public static void MemberInformation() {
+
 		MemberInformationDAO dao = new MemberInformationDAO();
-		//커밋
+		// 커밋
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("회원 정보 수정");
@@ -22,7 +21,7 @@ public class pro {
 		while (true) {
 			System.out.println("=================");
 			System.out.println("작업 선택하세요 : 로그아웃 - 0, 비밀번호 변경 - 1, 이름 변경 - 2, "
-					+ "전화번호 변경 - 3, 주소 변경 - 4,회원 탈퇴-5, 찜한 식당 확인하기 -6  ");
+					+ "전화번호 변경 - 3, 주소 변경 - 4,회원 탈퇴-5, 찜한 식당 확인하기 -6, 나가기 -7 ");
 			String opt = sc.nextLine();
 			// 뒤로 가기
 
@@ -101,6 +100,8 @@ public class pro {
 					dao.DeleteWishList(opt2, loginedId.getId());
 					System.out.println("찜삭제 성공");
 				}
+			} else if (opt.equals("7")) {
+				return 0;
 			} else {
 				System.out.println("숫자를 다시 입력해주세요.");
 
