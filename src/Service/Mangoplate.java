@@ -1,4 +1,5 @@
-package Service;
+package service;
+
 import MemberInformation.MemberInformationDAO;
 
 public class Mangoplate {
