@@ -9,9 +9,10 @@ import dto.MemberDTO;
 import dto.WishlistDTO;
 
 
+// 찜하기 기능의 인터페이스를 정의함!
 public class WishlistDAO implements WishlistDAOInterface {
-	// 찜하기 기능의 인터페이스를 정의함!
 
+	
 	// 로그인한 사용자의 정보를 저장
     MemberDTO memberDTO;
 
@@ -19,6 +20,9 @@ public class WishlistDAO implements WishlistDAOInterface {
     public WishlistDAO(MemberDTO memberDTO) {
         this.memberDTO = memberDTO;
     }
+//	해당 생성자는 WishlistDAO 클래스의 인스턴스를 생성할 때 호출됨! 
+//	생성자는 MemberDTO 타입의 인자를 받아서 클래스의 필드 memberDTO에 저장! 
+//	-> 클래스의 다른 메서드에서도 로그인한 사용자의 정보를 접근할 수 있음!
 	
 	@Override
 	public void addWish(String userId, String resId) throws Exception {
@@ -38,7 +42,8 @@ public class WishlistDAO implements WishlistDAOInterface {
 		String user = "mango";
 		String password = "mango";
 		
-		// 전달받은 userId와 resId를 WishlistDTO 객체에 설정!
+		// 전달받은 userId와 resId를 WishlistDTO 객체에 설정! 
+		// -> WishlistDTO 객체에 사용자의 id와 res_id를 저장함
 		WishlistDTO wishlistDTO = new WishlistDTO();
 		wishlistDTO.setId(userId);
 		wishlistDTO.setRes_id(resId);
