@@ -97,7 +97,6 @@ public class RestaurantService {
 			    System.out.println("wish_res_id"+wish_res_id);
 			    
 			    WishlistDTO wishlistDTO = new WishlistDTO();
-			    
 			    wishlistDTO.setId(memberDTO.getId());
 			    wishlistDTO.setRes_id(wish_res_id);
 			    

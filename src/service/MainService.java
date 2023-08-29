@@ -13,8 +13,6 @@ public class MainService {
 	Scanner s = new Scanner(System.in);
 
 	public static MemberDTO loginedMember; // 로그인된 사용자 아이디를 기억시킬 전역변수
-	
-	RestaurantService resService = new RestaurantService(loginedMember);
 
 	String user_id;
 
@@ -45,24 +43,29 @@ public class MainService {
 						}
 					}
 
-					System.out.println("1. 맛집리스트 보기 ");
-					System.out.println("2. my page 보기 ");
-					userInput = Integer.parseInt(s.nextLine());
-					if (userInput == 1) {
+					while(true) {
+						System.out.println("1. 맛집리스트 보기 ");
+						System.out.println("2. my page 보기 ");
+						userInput = Integer.parseInt(s.nextLine());
+						if (userInput == 1) {
 
-						resService.restaurantList();
+							RestaurantService resService = new RestaurantService(loginedMember);
 
-					} else if (userInput == 2) {
-						// 준택이형 코드
-						while (true) {
+							resService.restaurantList();
 
-							int temp;
-							temp = Pro.memberInformation(loginedMember);
-							if (temp == 1) {
-								break;
+						} else if (userInput == 2) {
+							// 준택이형 코드
+							while (true) {
+
+								int temp;
+								temp = Pro.memberInformation(loginedMember);
+								if (temp == 1) {
+									break;
+								}
 							}
 						}
 					}
+
 
 				} else if (userInput == 2) {
 					signIn();
@@ -189,7 +192,7 @@ public class MainService {
 			}
 		} catch (Exception e) {
 			System.out.println("4자리 이하 한글만 입력하세요");
-//			checkName();
+			//			checkName();
 			return null;
 		}
 
