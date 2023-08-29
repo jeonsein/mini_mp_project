@@ -1,4 +1,4 @@
-package Service;
+package service;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -12,10 +12,11 @@ public class MainService {
 
 	Scanner s = new Scanner(System.in);
 
-	private static MemberDTO loginedMember; //로그인된 사용자 아이디를 기억시킬 전역변수
+	private static MemberDTO loginedMember; // 로그인된 사용자 아이디를 기억시킬 전역변수
+	RestaurantService resService = new RestaurantService();
 
 	String user_id;
-	
+
 	pro Pro = new pro();
 
 	/**
@@ -42,23 +43,32 @@ public class MainService {
 							break;
 						}
 					}
-					//준택이형 코드
-					while(true) {
-						int temp;
-						temp = Pro.memberInformation(loginedMember);
-						if(temp == 1) {
-							break;
+
+					System.out.println("1. 맛집리스트 보기 ");
+					System.out.println("2. my page 보기 ");
+					userInput = Integer.parseInt(s.nextLine());
+					if (userInput == 1) {
+
+						resService.restaurantList();
+
+					} else if (userInput == 2) {
+						// 준택이형 코드
+						while (true) {
+
+							int temp;
+							temp = Pro.memberInformation(loginedMember);
+							if (temp == 1) {
+								break;
+							}
 						}
 					}
-					
-				
 
 				} else if (userInput == 2) {
 					signIn();
 				} else if (userInput == 3) {
 					System.exit(0);
 				}
-			} catch (NumberFormatException e) {
+			} catch (Exception e) {
 				System.out.println("잘못 누르셨습니다.");
 				System.out.println("1,2,3 메뉴중 숫자를 선택하세요.");
 				start();
