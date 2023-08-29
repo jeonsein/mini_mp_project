@@ -1,13 +1,24 @@
+<<<<<<< HEAD:src/DTO/MemberDTO.java
+package DTO;
+=======
 package member_dto;
 
+>>>>>>> fe255032c228465f665efbb8d5797869cc16ee23:src/member_dto/MemberDTO.java
 public class MemberDTO {
-
+	//커밋
 	private String id;
 	private int pwd;
 	private String name;
 	private String tel;
 	private int region_code;
 	
+<<<<<<< HEAD:src/DTO/MemberDTO.java
+	public MemberDTO() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public MemberDTO(String id) {
+=======
 	public MemberDTO() {};
 
 	public MemberDTO(String id, int pwd, String name, String tel, int region_code) {
@@ -25,6 +36,7 @@ public class MemberDTO {
 	}
 	
 	public MemberDTO (String id) {
+>>>>>>> fe255032c228465f665efbb8d5797869cc16ee23:src/member_dto/MemberDTO.java
 		this.id = id;
 	}
 	
@@ -59,7 +71,11 @@ public class MemberDTO {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
+<<<<<<< HEAD:src/DTO/MemberDTO.java
+			
+=======
 	
+>>>>>>> fe255032c228465f665efbb8d5797869cc16ee23:src/member_dto/MemberDTO.java
 	public int getRegion_code() {
 		return region_code;
 	}
