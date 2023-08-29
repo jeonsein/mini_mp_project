@@ -1,4 +1,4 @@
-package Service;
+package service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +53,9 @@ public class RestaurantService {
 				wishBestSelect();
 			}
 		}
+		
+		
+		
 	} // end of restaurantList
 	
 	// 지역 리스트 보기
@@ -196,7 +199,7 @@ public class RestaurantService {
 		RestaurantService ResSer = new RestaurantService();
 		
 		ResSer.restaurantList();
+		
 	}
-	
 	
 }
