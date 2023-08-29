@@ -15,7 +15,6 @@ public class MainService {
 	public static MemberDTO loginedMember; // 로그인된 사용자 아이디를 기억시킬 전역변수
 	
 	RestaurantService resService = new RestaurantService(loginedMember);
-	
 
 	String user_id;
 
