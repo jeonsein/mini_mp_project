@@ -22,17 +22,18 @@ public class RestaurantService {
 	
 	RegionDAO regionDAO = new RegionDAO();
 	
-	WishlistDAO wishlistDAO = new WishlistDAO();
 	WishlistDTO wishlistDTO = new WishlistDTO();
 	
 	List<RestaurantDTO> Restaurantlist = new ArrayList<>();
 	List<RegionDTO> regionList = new ArrayList<>();
 
+	WishlistDAO wishlistDAO;
 	MemberDTO memberDTO;
 	
-	public RestaurantService(MemberDTO loggedInUserId) {
-		this.memberDTO = loggedInUserId;
-	}
+    public RestaurantService(MemberDTO loggedInUserId) {
+        this.memberDTO = loggedInUserId;
+        this.wishlistDAO = new WishlistDAO(loggedInUserId);  // WishlistDAO에 로그인한 사용자 정보 전달
+    }
 	
 	// 맛집 리스트 보기
 	public void restaurantList() {
@@ -94,13 +95,13 @@ public class RestaurantService {
 				
 			    String wish_res_id = resDAO.selectRegionRes(regionNum, select).getRes_id();
 			    
-			    System.out.println("wish_res_id"+wish_res_id);
+			    System.out.println("wish_res_id: " + wish_res_id);
+			    System.out.println("memberDTO.getId(): " + memberDTO.getId());
 			    
 			    WishlistDTO wishlistDTO = new WishlistDTO();
+			    
 			    wishlistDTO.setId(memberDTO.getId());
 			    wishlistDTO.setRes_id(wish_res_id);
-			    
-			    System.out.println("memberDTO.getId()" + memberDTO.getId());
 			    
 			    try {
 			    	

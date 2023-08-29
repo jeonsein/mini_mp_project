@@ -5,12 +5,21 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import dto.MemberDTO;
 import dto.WishlistDTO;
 
 
 public class WishlistDAO implements WishlistDAOInterface {
 	// 찜하기 기능의 인터페이스를 정의함!
 
+	// 로그인한 사용자의 정보를 저장
+    MemberDTO memberDTO;
+
+    // 로그인한 사용자의 정보 (MemberDTO)를 받아서 필드에 저장
+    public WishlistDAO(MemberDTO memberDTO) {
+        this.memberDTO = memberDTO;
+    }
+	
 	@Override
 	public void addWish(String userId, String resId) throws Exception {
 
@@ -28,9 +37,12 @@ public class WishlistDAO implements WishlistDAOInterface {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String user = "mango";
 		String password = "mango";
-
-		WishlistDTO wishlistDTO = new WishlistDTO();
 		
+		// 전달받은 userId와 resId를 WishlistDTO 객체에 설정!
+		WishlistDTO wishlistDTO = new WishlistDTO();
+		wishlistDTO.setId(userId);
+		wishlistDTO.setRes_id(resId);
+
 		// 찜하기
 		String addWishSQL = "INSERT INTO wish_list (id, res_id) VALUES (?, ?)";
 
@@ -62,15 +74,25 @@ public class WishlistDAO implements WishlistDAOInterface {
 
 		} catch (Exception e) {
 			throw new Exception("찜 리스트에 추가하지 못했습니다.: " + e.getMessage());
-		}  finally {
+		} finally {
 			
-	        try {
-	            if (pstmt != null) pstmt.close();
-	            if (conn != null) conn.close();
-	        } catch (Exception e) {
-//	            log.error("error invoked. ", e);
-	        } // try-catch
-	    } // try-catch-finally
+            try {
+                if (pstmt != null) {
+                	pstmt.close();
+                } // if
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            } // try-catch
+            
+            try {
+                if (conn != null) {
+                	conn.close();
+                } // if
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            } // try-catch
+            
+        } // try-catch-finally
 
 	} // addWish()
 	
@@ -112,13 +134,36 @@ public class WishlistDAO implements WishlistDAOInterface {
 	        
 	    } catch (Exception e) {
 	        throw new Exception("찜 리스트 조회를 실패하였습니다.: " + e.getMessage());
-	    } finally {
-	    	rs.close();
-	    	pstmt.close();
-	    	conn.close();
+        } finally {
+        	
+            try {
+                if (rs != null) {
+                	rs.close();
+                } // if
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            } // try-catch
+            
+            try {
+                if (pstmt != null) {
+                	pstmt.close();
+                } // if
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            } // try-catch
+            
+            try {
+                if (conn != null) {
+                	conn.close();
+                } // if
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            } // try-catch
+            
 	    } // try-catch-finally
 	    
 	    return false;
+	    
 	} // isAlreadyWished()
 
 } // end class
