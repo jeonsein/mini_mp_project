@@ -1,4 +1,4 @@
-package restaurant_dao;
+package dao;
 
 import java.lang.module.FindException;
 import java.sql.Connection;
@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import db.DBConnect;
-import menu_dto.MenuDTO;
-import restaurant_dto.RestaurantDTO;
+import dto.MenuDTO;
+import dto.RestaurantDTO;
 
 public class RestaurantDAO implements RestaurantDAOInterface {
 

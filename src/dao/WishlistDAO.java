@@ -1,12 +1,11 @@
-package wishlist_dao;
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-//import lombok.extern.log4j.Log4j2;
-import wishlist_dto.WishlistDTO;
+import dto.WishlistDTO;
 
 
 public class WishlistDAO implements WishlistDAOInterface {

@@ -1,8 +1,6 @@
-package restaurant_dto;
+package dto;
 
 import java.util.List;
-
-import menu_dto.MenuDTO;
 
 public class RestaurantDTO {
 

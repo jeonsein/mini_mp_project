@@ -4,16 +4,18 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import DTO.MemberDTO;
-import member.Member_DAO;
-import region_dto.RegionDTO;
+import dao.Member_DAO;
+import dto.MemberDTO;
+import dto.RegionDTO;
 
 public class MainService {
 
 	Scanner s = new Scanner(System.in);
 
-	private static MemberDTO loginedMember; // 로그인된 사용자 아이디를 기억시킬 전역변수
-	RestaurantService resService = new RestaurantService();
+	public static MemberDTO loginedMember; // 로그인된 사용자 아이디를 기억시킬 전역변수
+	
+	RestaurantService resService = new RestaurantService(loginedMember);
+	
 
 	String user_id;
 

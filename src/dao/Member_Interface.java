@@ -1,4 +1,4 @@
-package member;
+package dao;
 
 public interface Member_Interface {
 

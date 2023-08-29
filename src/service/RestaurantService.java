@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import menu_dto.MenuDTO;
-import region_dao.RegionDAO;
-import region_dto.RegionDTO;
-import restaurant_dao.RestaurantDAO;
-import restaurant_dto.RestaurantDTO;
-import wishlist_dao.WishlistDAO;
-import wishlist_dto.WishlistDTO;
+import dao.RegionDAO;
+import dao.RestaurantDAO;
+import dao.WishlistDAO;
+import dto.MemberDTO;
+import dto.MenuDTO;
+import dto.RegionDTO;
+import dto.RestaurantDTO;
+import dto.WishlistDTO;
 
 public class RestaurantService {
-	
-	String loggedInUserId = "";
 	
 	Scanner sc = new Scanner(System.in);
 		
@@ -29,13 +28,14 @@ public class RestaurantService {
 	List<RestaurantDTO> Restaurantlist = new ArrayList<>();
 	List<RegionDTO> regionList = new ArrayList<>();
 
+	MemberDTO memberDTO;
+	
+	public RestaurantService(MemberDTO loggedInUserId) {
+		this.memberDTO = loggedInUserId;
+	}
+	
 	// 맛집 리스트 보기
 	public void restaurantList() {
-
-	    System.out.println("아이디 입력: ");
-	    String userId = sc.nextLine();
-
-	    loggedInUserId = userId;
 		
 		while (true) {
 			System.out.println("0. 이전 페이지로 돌아가기");
@@ -53,8 +53,6 @@ public class RestaurantService {
 				wishBestSelect();
 			}
 		}
-		
-		
 		
 	} // end of restaurantList
 	
@@ -93,19 +91,24 @@ public class RestaurantService {
 				break;
 			
 			} else if(select == 1) {
+				
 			    String wish_res_id = resDAO.selectRegionRes(regionNum, select).getRes_id();
 			    
-			    // DTO 객체를 써야할까 굳이...?
+			    System.out.println("wish_res_id"+wish_res_id);
+			    
 			    WishlistDTO wishlistDTO = new WishlistDTO();
-			    wishlistDTO.setId(loggedInUserId);
+			    
+			    wishlistDTO.setId(memberDTO.getId());
 			    wishlistDTO.setRes_id(wish_res_id);
+			    
+			    System.out.println("memberDTO.getId()" + memberDTO.getId());
 			    
 			    try {
 			    	
 			        if (wishlistDAO.isAlreadyWished(wishlistDTO)) {
 			            System.out.println("찜 목록에 이미 등록되어 있습니다!");
 			        } else {
-			            wishlistDAO.addWish(loggedInUserId, wish_res_id);
+			            wishlistDAO.addWish(memberDTO.getId(), wish_res_id);
 			            System.out.println("찜 리스트에 추가되었습니다!");
 			        } // if-else
 			        
@@ -113,7 +116,6 @@ public class RestaurantService {
 			        System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
 			    } // try-catch
 			} // if-else
-			
 			
 		} // while
 	} // regionSelect()
@@ -158,7 +160,7 @@ public class RestaurantService {
 			    
 			    WishlistDTO wishlistDTO = new WishlistDTO();
 			    
-			    wishlistDTO.setId(loggedInUserId);
+			    wishlistDTO.setId(memberDTO.getId());
 			    wishlistDTO.setRes_id(wish_res_id);
 			    
 			    try {
@@ -166,14 +168,14 @@ public class RestaurantService {
 			    	if (wishlistDAO.isAlreadyWished(wishlistDTO)) {
 			            System.out.println("찜 목록에 이미 등록되어 있습니다!");
 			        } else {
-			            wishlistDAO.addWish(loggedInUserId, wish_res_id);
+			            wishlistDAO.addWish(memberDTO.getId(), wish_res_id);
 			            System.out.println("찜 리스트에 추가되었습니다!");
 			        } // if-else
 			    	
 			    } catch (Exception e) {
 			        System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
 			    } // try-catch
-			}
+			} // if-else
 			
 		} // while
 	} // wishBestSelect()
@@ -192,14 +194,6 @@ public class RestaurantService {
 		}
 		System.out.println(resDTO.getLocation());
 		System.out.println(resDTO.getRes_info()+"\n");
-	}
-
-	public static void main(String[] args) {
-		
-		RestaurantService ResSer = new RestaurantService();
-		
-		ResSer.restaurantList();
-		
 	}
 	
 }
