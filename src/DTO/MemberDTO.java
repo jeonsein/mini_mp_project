@@ -1,7 +1,8 @@
-package member_dto;
+package DTO;
+
 
 public class MemberDTO {
-
+	//커밋
 	private String id;
 	private int pwd;
 	private String name;
@@ -10,6 +11,15 @@ public class MemberDTO {
 	
 	public MemberDTO() {};
 
+	public MemberDTO(String id) {
+		this.id = id;
+	}
+
+	public MemberDTO (String id, int pwd) {
+		this.id = id;
+		this.pwd = pwd;
+	}
+
 	public MemberDTO(String id, int pwd, String name, String tel, int region_code) {
 		super();
 		this.id = id;
@@ -17,15 +27,6 @@ public class MemberDTO {
 		this.name = name;
 		this.tel = tel;
 		this.region_code = region_code;
-	}
-	
-	public MemberDTO (String id, int pwd) {
-		this.id = id;
-		this.pwd = pwd;
-	}
-	
-	public MemberDTO (String id) {
-		this.id = id;
 	}
 	
 	public String getId() {
@@ -59,7 +60,7 @@ public class MemberDTO {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	
+
 	public int getRegion_code() {
 		return region_code;
 	}
