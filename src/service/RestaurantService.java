@@ -105,9 +105,6 @@ public class RestaurantService {
 				
 			    String wish_res_id = resDAO.selectRegionRes(regionNum, select).getRes_id();
 			    
-			    System.out.println("wish_res_id: " + wish_res_id);
-			    System.out.println("memberDTO.getId(): " + memberDTO.getId());
-			    
 			    WishlistDTO wishlistDTO = new WishlistDTO();
 			    
 			    wishlistDTO.setId(memberDTO.getId());
