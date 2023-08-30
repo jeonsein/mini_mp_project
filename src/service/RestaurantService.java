@@ -35,10 +35,17 @@ public class RestaurantService {
         this.wishlistDAO = new WishlistDAO(loggedInUserId);  // WishlistDAO에 로그인한 사용자 정보 전달
     }
 	
+	public static void printSpace() {
+		for (int i = 0; i < 60; i++) {
+			System.out.println("");
+		}
+	}
+	
 	// 맛집 리스트 보기
 	public void restaurantList() {
 		
 		while (true) {
+			printSpace();
 			System.out.println("0. 이전 페이지로 돌아가기");
 			System.out.println("1. 지역별로 보기");
 			System.out.println("2. 찜 많은 순으로 보기");
@@ -59,6 +66,7 @@ public class RestaurantService {
 	
 	// 지역 리스트 보기
 	public void regionList() {
+		printSpace();
 		regionList = regionDAO.regionList();
 		for(RegionDTO regionDTO : regionList) {
 			System.out.println(regionDTO);
@@ -70,6 +78,7 @@ public class RestaurantService {
 	
 	// 지역 별로 보기
 	public void regionSelect(int RegionNum) {
+		printSpace();
 		int regionNum = RegionNum;
 		Restaurantlist = resDAO.regionSelect(RegionNum);
 		int num4 = 1;
@@ -81,6 +90,7 @@ public class RestaurantService {
 		System.out.print("원하시는 식당을 선택해주세요 : ");
 		int select = sc.nextInt();
 		while(true) {
+			printSpace();
 			int n = select;
 			selectRegionRes(regionNum, select);
 			System.out.println("원하시는 기능을 선택해주세요.");
@@ -94,9 +104,6 @@ public class RestaurantService {
 			} else if(select == 1) {
 				
 			    String wish_res_id = resDAO.selectRegionRes(regionNum, select).getRes_id();
-			    
-			    System.out.println("wish_res_id: " + wish_res_id);
-			    System.out.println("memberDTO.getId(): " + memberDTO.getId());
 			    
 			    WishlistDTO wishlistDTO = new WishlistDTO();
 			    
@@ -122,7 +129,7 @@ public class RestaurantService {
 	
 	// 지역 순에서 원하는 식당 보기
 	public void selectRegionRes(int RegionNum, int selectNum) {
-		System.out.println("------ 지역 순에서 원하는 식당 보기");
+		printSpace();
 		resDTO = resDAO.selectRegionRes(RegionNum, selectNum);
 		System.out.println(resDTO.getWish_count());
 		System.out.println(resDTO.getRes_name());
@@ -138,6 +145,7 @@ public class RestaurantService {
 	
 	// 찜 많은 순으로 보기
 	public void wishBestSelect() {
+		printSpace();
 		Restaurantlist = resDAO.wishBestSelect();
 		int num3 = 1;
 		for(RestaurantDTO res : Restaurantlist) {
@@ -148,6 +156,7 @@ public class RestaurantService {
 		int select = sc.nextInt();
 		int wish_n = select;
 		while(true) {
+			printSpace();
 			selectWishRes(select);
 			System.out.println("원하시는 기능을 선택해주세요.");
 			System.out.println("0. 이전 페이지로 돌아가기");
@@ -182,6 +191,7 @@ public class RestaurantService {
 	
 	// 찜 많은 순에서 원하는 식당 보기
 	public void selectWishRes(int select) {
+		printSpace();
 		resDTO = resDAO.selectWishRes(select);
 
 		System.out.println(resDTO.getWish_count());
