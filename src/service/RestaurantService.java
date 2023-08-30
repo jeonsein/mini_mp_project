@@ -90,6 +90,7 @@ public class RestaurantService {
 		System.out.print("원하시는 식당을 선택해주세요 : ");
 		int select = sc.nextInt();
 		int n = select;
+		
 		while(true) {
 			printSpace();
 			selectRegionRes(regionNum, n);
@@ -109,8 +110,6 @@ public class RestaurantService {
 			    
 			    wishlistDTO.setId(memberDTO.getId());
 			    wishlistDTO.setRes_id(wish_res_id);
-			    System.out.println(wish_res_id);
-			
 			    
 			    try {
 			    	
@@ -124,6 +123,10 @@ public class RestaurantService {
 			    } catch (Exception e) {
 			        System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
 			    } // try-catch
+			    
+			    System.out.println("이전 페이지로 돌아갑니다.");
+			    break;
+			    
 			} // if-else
 			
 		} // while
@@ -173,8 +176,6 @@ public class RestaurantService {
 			    
 			    wishlistDTO.setId(memberDTO.getId());
 			    wishlistDTO.setRes_id(wish_res_id);
-			    System.out.println(wish_res_id);
-			    System.out.println(wish_n);
 			    
 			    try {
 			    	
@@ -188,6 +189,10 @@ public class RestaurantService {
 			    } catch (Exception e) {
 			        System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
 			    } // try-catch
+			    
+			    System.out.println("이전 페이지로 돌아갑니다.");
+			    break;
+			    
 			} // if-else
 			
 		} // while
