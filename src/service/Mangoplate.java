@@ -1,6 +1,5 @@
 package service;
 
-import dao.MemberInformationDAO;
 import img.Loading;
 import img.Mango;
 import img.Music;
@@ -10,7 +9,6 @@ public class Mangoplate {
 	public static void main(String[] args) {
 
 		// 미니 프로젝트 메인문
-		MemberInformationDAO dao = new MemberInformationDAO();
 		MainService mainService = new MainService();
 		Mango mango = new Mango();
 		Loading loading = new Loading();

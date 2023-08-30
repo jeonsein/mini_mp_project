@@ -1,6 +1,5 @@
 package dao;
 
-import java.lang.module.FindException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,15 +49,10 @@ public class RestaurantDAO implements RestaurantDAOInterface {
 
 		ResultSet rs = null;
 
-		String selectSQL = "SELECT RES_NAME, WISH_COUNT\r\n"
-				+ "FROM(\r\n"
-				+ "    SELECT ROWNUM AS RN, RES_NAME, WISH_COUNT, RES_ID\r\n"
-				+ "    FROM ( \r\n"
-				+ "        SELECT RES_NAME, WISH_COUNT, RES_ID \r\n"
-				+ "        FROM RESTAURANT\r\n"
-				+ "        WHERE REGION_CODE = ?\r\n"
-				+ "        ORDER BY WISH_COUNT DESC)\r\n"
-				+ "        )";
+		String selectSQL = "SELECT RES_NAME, WISH_COUNT\r\n" + "FROM(\r\n"
+				+ "    SELECT ROWNUM AS RN, RES_NAME, WISH_COUNT, RES_ID\r\n" + "    FROM ( \r\n"
+				+ "        SELECT RES_NAME, WISH_COUNT, RES_ID \r\n" + "        FROM RESTAURANT\r\n"
+				+ "        WHERE REGION_CODE = ?\r\n" + "        ORDER BY WISH_COUNT DESC)\r\n" + "        )";
 		try {
 			pstmt = conn.prepareStatement(selectSQL);
 			pstmt.setInt(1, num);
@@ -87,19 +81,15 @@ public class RestaurantDAO implements RestaurantDAOInterface {
 
 		ResultSet rs = null;
 
-		String selectSQL = "SELECT RES_NAME, WISH_COUNT\r\n"
-				+ "FROM(\r\n"
-				+ "    SELECT ROWNUM AS rn, RES_NAME, WISH_COUNT \r\n"
-				+ "    FROM(\r\n"
-				+ "        SELECT RES_NAME, WISH_COUNT \r\n"
-				+ "        FROM RESTAURANT\r\n"
-				+ "        ORDER BY WISH_COUNT DESC)\r\n"
-				+ "        )";
+		String selectSQL = "SELECT RES_NAME, WISH_COUNT\r\n" + "FROM(\r\n"
+				+ "    SELECT ROWNUM AS rn, RES_NAME, WISH_COUNT \r\n" + "    FROM(\r\n"
+				+ "        SELECT RES_NAME, WISH_COUNT \r\n" + "        FROM RESTAURANT\r\n"
+				+ "        ORDER BY WISH_COUNT DESC)\r\n" + "        )";
 		try {
 			pstmt = conn.prepareStatement(selectSQL);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				list.add(new RestaurantDTO(rs.getString(1),rs.getInt(2)));
+				list.add(new RestaurantDTO(rs.getString(1), rs.getInt(2)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -113,39 +103,31 @@ public class RestaurantDAO implements RestaurantDAOInterface {
 
 		return list;
 	}
-	
+
 	// 지역 순에서 선택 식당 보기
 	@Override
 	public RestaurantDTO selectRegionRes(int RegionNum, int selectNum) {
-		
-		RestaurantDTO resDTO = null;
+
 		ResultSet rs = null;
-		
-		String selectSQL="SELECT E.*, M.*,R.*\r\n"
-				+ "FROM(\r\n"
-				+ "    SELECT ROWNUM AS RN, A.*\r\n"
-				+ "    FROM ( \r\n"
-				+ "        SELECT * \r\n"
-				+ "        FROM RESTAURANT\r\n"
-				+ "        WHERE REGION_CODE = ?\r\n"
-				+ "        ORDER BY WISH_COUNT DESC) A\r\n"
-				+ "        ) E, MENU M, REGION R\r\n"
-				+ "WHERE E.RES_ID = M.RES_ID\r\n"
-				+ "AND E.REGION_CODE = R.REGION_CODE\r\n"
-				+ "AND RN = ?";
-		
+
+		String selectSQL = "SELECT E.*, M.*,R.*\r\n" + "FROM(\r\n" + "    SELECT ROWNUM AS RN, A.*\r\n"
+				+ "    FROM ( \r\n" + "        SELECT * \r\n" + "        FROM RESTAURANT\r\n"
+				+ "        WHERE REGION_CODE = ?\r\n" + "        ORDER BY WISH_COUNT DESC) A\r\n"
+				+ "        ) E, MENU M, REGION R\r\n" + "WHERE E.RES_ID = M.RES_ID\r\n"
+				+ "AND E.REGION_CODE = R.REGION_CODE\r\n" + "AND RN = ?";
+
 		RestaurantDTO restaurantDTO = null;
-		
+
 		try {
 			pstmt = conn.prepareStatement(selectSQL);
 			pstmt.setInt(1, RegionNum);
 			pstmt.setInt(2, selectNum);
 			rs = pstmt.executeQuery();
-			
+
 			List<MenuDTO> menuList = new ArrayList<>();
-			
-			while(rs.next()) {
-				if(restaurantDTO == null) {
+
+			while (rs.next()) {
+				if (restaurantDTO == null) {
 					restaurantDTO = new RestaurantDTO();
 					restaurantDTO.setRes_id(rs.getString("RES_ID"));
 					restaurantDTO.setWish_count(rs.getInt("WISH_COUNT"));
@@ -160,52 +142,45 @@ public class RestaurantDAO implements RestaurantDAOInterface {
 				menuDTO.setMenu_price(rs.getString("MENU_PRICE"));
 				menuList.add(menuDTO);
 			}
+
 			return restaurantDTO;
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-	
+
 			try {
 				pstmt.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-				
-		return resDTO;
+		return restaurantDTO;
+
 	}
 
-	
-	// 찜 많은 순에서 선택 식당 보기 
+	// 찜 많은 순에서 선택 식당 보기
 	@Override
-	public RestaurantDTO selectWishRes(int num) throws FindException{
-		
+	public RestaurantDTO selectWishRes(int num) {
+
 		ResultSet rs = null;
-		
-		String selectSQL = "SELECT E.*, M.*, R.*\r\n"
-				+ "FROM(\r\n"
-				+ "    SELECT ROWNUM AS rn,A.*\r\n"
-				+ "    FROM(\r\n"
-				+ "        SELECT \r\n"
-				+ "        *\r\n"
-				+ "        FROM RESTAURANT\r\n"
-				+ "        ORDER BY WISH_COUNT DESC) A\r\n"
-				+ "        ) E, MENU M, REGION R\r\n"
-				+ "WHERE E.RES_ID = M.RES_ID\r\n"
-				+ "AND E.REGION_CODE = R.REGION_CODE\r\n"
-				+ "AND RN =?";
-		
+
+		String selectSQL = "SELECT E.*, M.*, R.*\r\n" + "FROM(\r\n" + "    SELECT ROWNUM AS rn,A.*\r\n"
+				+ "    FROM(\r\n" + "        SELECT \r\n" + "        *\r\n" + "        FROM RESTAURANT\r\n"
+				+ "        ORDER BY WISH_COUNT DESC) A\r\n" + "        ) E, MENU M, REGION R\r\n"
+				+ "WHERE E.RES_ID = M.RES_ID\r\n" + "AND E.REGION_CODE = R.REGION_CODE\r\n" + "AND RN =?";
+
 		RestaurantDTO restaurantDTO = null;
-		
+
 		try {
 			pstmt = conn.prepareStatement(selectSQL);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
-			
+
 			List<MenuDTO> menuList = new ArrayList<>();
-			
-			while(rs.next()) {
-				if(restaurantDTO == null) {
+
+			while (rs.next()) {
+				if (restaurantDTO == null) {
 					restaurantDTO = new RestaurantDTO();
 					restaurantDTO.setRes_id(rs.getString(2));
 					restaurantDTO.setWish_count(rs.getInt("WISH_COUNT"));
@@ -220,22 +195,129 @@ public class RestaurantDAO implements RestaurantDAOInterface {
 				menuDTO.setMenu_price(rs.getString("MENU_PRICE"));
 				menuList.add(menuDTO);
 			}
-			
+
 			return restaurantDTO;
-			
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
-			throw new FindException(e.getMessage());
-			
-		}finally {
+
+		} finally {
 			try {
 				pstmt.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		
+		return restaurantDTO;
+
 	}
+
+	// 지역 순에서 찜 선택 후 원하는 식당 보기
+	@Override
+	public RestaurantDTO selectAfterRegionRes(int RegionNum, String num) {
+		
+		int res_id = Integer.parseInt(num);
+
+		ResultSet rs = null;
+
+		String selectSQL = "SELECT E.*, M.*,R.*\r\n"
+				+ "FROM(\r\n"
+				+ "    SELECT ROWNUM AS RN, A.*\r\n"
+				+ "    FROM ( \r\n"
+				+ "        SELECT * \r\n"
+				+ "        FROM RESTAURANT\r\n"
+				+ "        WHERE REGION_CODE = ?\r\n"
+				+ "        ORDER BY WISH_COUNT DESC) A\r\n"
+				+ "        ) E, MENU M, REGION R\r\n"
+				+ "WHERE E.RES_ID = M.RES_ID\r\n"
+				+ "AND E.REGION_CODE = R.REGION_CODE\r\n"
+				+ "AND E.RES_ID = ?";
+
+		RestaurantDTO restaurantDTO = null;
+
+		try {
+			pstmt = conn.prepareStatement(selectSQL);
+			pstmt.setInt(1, RegionNum);
+			pstmt.setInt(2, res_id);
+			rs = pstmt.executeQuery();
+
+			List<MenuDTO> menuList = new ArrayList<>();
+
+			while (rs.next()) {
+				if (restaurantDTO == null) {
+					restaurantDTO = new RestaurantDTO();
+					restaurantDTO.setRes_id(rs.getString("RES_ID"));
+					restaurantDTO.setWish_count(rs.getInt("WISH_COUNT"));
+					restaurantDTO.setRes_name(rs.getString("RES_NAME"));
+					restaurantDTO.setRes_tel(rs.getString("RES_TEL"));
+					restaurantDTO.setMenuList(menuList);
+					restaurantDTO.setLocation(rs.getString("REGION_NAME"));
+					restaurantDTO.setRes_info(rs.getString("RES_INFO"));
+				}
+				MenuDTO menuDTO = new MenuDTO();
+				menuDTO.setMenu_name(rs.getString("MENU_NAME"));
+				menuDTO.setMenu_price(rs.getString("MENU_PRICE"));
+				menuList.add(menuDTO);
+			}
+
+			return restaurantDTO;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			try {
+				pstmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return restaurantDTO;
+	}
+
+	// 찜 많은 순에서 찜 선택 후 선택 식당 가져오기
+	@Override
+	public RestaurantDTO selectAfterWishRes(String num) {
+
+		int res_id = Integer.parseInt(num);
+
+		RestaurantDTO restaurantDTO = null;
+		List<MenuDTO> menuList = new ArrayList<>();
+		ResultSet rs = null;
+
+		String selectSQL = "SELECT E.*, M.*, R.*\r\n" + "FROM(\r\n" + "    SELECT ROWNUM AS rn,A.*\r\n"
+				+ "    FROM(\r\n" + "        SELECT \r\n" + "        *\r\n" + "        FROM RESTAURANT\r\n"
+				+ "        ORDER BY WISH_COUNT DESC) A\r\n" + "        ) E, MENU M, REGION R\r\n"
+				+ "WHERE E.RES_ID = M.RES_ID\r\n" + "AND E.REGION_CODE = R.REGION_CODE\r\n" + "AND E.RES_ID = ?";
+
+		try {
+			pstmt = conn.prepareStatement(selectSQL);
+			pstmt.setInt(1, res_id);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				if (restaurantDTO == null) {
+					restaurantDTO = new RestaurantDTO();
+					restaurantDTO.setRes_id(rs.getString(2));
+					restaurantDTO.setWish_count(rs.getInt("WISH_COUNT"));
+					restaurantDTO.setRes_name(rs.getString("RES_NAME"));
+					restaurantDTO.setRes_tel(rs.getString("RES_TEL"));
+					restaurantDTO.setMenuList(menuList);
+					restaurantDTO.setLocation(rs.getString("REGION_NAME"));
+					restaurantDTO.setRes_info(rs.getString("RES_INFO"));
+				}
+				MenuDTO menuDTO = new MenuDTO();
+				menuDTO.setMenu_name(rs.getString("MENU_NAME"));
+				menuDTO.setMenu_price(rs.getString("MENU_PRICE"));
+				menuList.add(menuDTO);
+			}
+
+			return restaurantDTO;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return restaurantDTO;
+	}
+
 }
