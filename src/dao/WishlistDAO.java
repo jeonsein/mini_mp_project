@@ -29,7 +29,6 @@ public class WishlistDAO implements WishlistDAOInterface {
 
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
-//			log.info("addWish()_JDBC 드라이버 로드 성공 :-)");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return; // void로 선언된 method는 return;으로 종료 가능
@@ -57,7 +56,6 @@ public class WishlistDAO implements WishlistDAOInterface {
 		try {
 
 			conn = DriverManager.getConnection(url, user, password);
-//			log.info("addWish() invoked.");
 
 			PreparedStatement addWish_Pstmt = conn.prepareStatement(addWishSQL);
 			PreparedStatement addWishCount_Pstmt = conn.prepareStatement(addWishCountSQL);
@@ -170,5 +168,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 	    return false;
 	    
 	} // isAlreadyWished()
+	
+	
 
 } // end class

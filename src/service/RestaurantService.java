@@ -123,6 +123,10 @@ public class RestaurantService {
 			    } catch (Exception e) {
 			        System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
 			    } // try-catch
+			    
+			    System.out.println("이전 페이지로 돌아갑니다.");
+			    break;
+			    
 			} // if-else
 			
 		} // while
@@ -206,6 +210,10 @@ public class RestaurantService {
 			    } catch (Exception e) {
 			        System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
 			    } // try-catch
+			    
+			    System.out.println("이전 페이지로 돌아갑니다.");
+			    break;
+			    
 			} // if-else
 			
 		} // while
