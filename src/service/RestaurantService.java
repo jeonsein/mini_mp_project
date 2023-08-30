@@ -89,10 +89,10 @@ public class RestaurantService {
 		}
 		System.out.print("원하시는 식당을 선택해주세요 : ");
 		int select = sc.nextInt();
+		int n = select;
 		while(true) {
 			printSpace();
-			int n = select;
-			selectRegionRes(regionNum, select);
+			selectRegionRes(regionNum, n);
 			System.out.println("원하시는 기능을 선택해주세요.");
 			System.out.println("0. 이전 페이지로 돌아가기");
 			System.out.println("1. 찜하기");
@@ -103,12 +103,14 @@ public class RestaurantService {
 			
 			} else if(select == 1) {
 				
-			    String wish_res_id = resDAO.selectRegionRes(regionNum, select).getRes_id();
+			    String wish_res_id = resDAO.selectRegionRes(regionNum, n).getRes_id();
 			    
 			    WishlistDTO wishlistDTO = new WishlistDTO();
 			    
 			    wishlistDTO.setId(memberDTO.getId());
 			    wishlistDTO.setRes_id(wish_res_id);
+			    System.out.println(wish_res_id);
+			
 			    
 			    try {
 			    	
@@ -157,7 +159,7 @@ public class RestaurantService {
 		int wish_n = select;
 		while(true) {
 			printSpace();
-			selectWishRes(select);
+			selectWishRes(wish_n);
 			System.out.println("원하시는 기능을 선택해주세요.");
 			System.out.println("0. 이전 페이지로 돌아가기");
 			System.out.println("1. 찜하기");
@@ -171,6 +173,8 @@ public class RestaurantService {
 			    
 			    wishlistDTO.setId(memberDTO.getId());
 			    wishlistDTO.setRes_id(wish_res_id);
+			    System.out.println(wish_res_id);
+			    System.out.println(wish_n);
 			    
 			    try {
 			    	
