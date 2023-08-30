@@ -90,9 +90,10 @@ public class RestaurantService {
 		System.out.print("원하시는 식당을 선택해주세요 : ");
 		int select = sc.nextInt();
 		int n = select;
+		String res_id = resDAO.selectRegionRes(regionNum, n).getRes_id();
 		while(true) {
 			printSpace();
-			selectRegionRes(regionNum, n);
+			selectAfterRegionRes(regionNum, res_id);
 			System.out.println("원하시는 기능을 선택해주세요.");
 			System.out.println("0. 이전 페이지로 돌아가기");
 			System.out.println("1. 찜하기");
@@ -109,9 +110,7 @@ public class RestaurantService {
 			    
 			    wishlistDTO.setId(memberDTO.getId());
 			    wishlistDTO.setRes_id(wish_res_id);
-			    System.out.println(wish_res_id);
 			
-			    
 			    try {
 			    	
 			        if (wishlistDAO.isAlreadyWished(wishlistDTO)) {
@@ -145,6 +144,26 @@ public class RestaurantService {
 		System.out.println(resDTO.getRes_info()+"\n");
 	}
 	
+	
+	// 지역 순에서 찜 선택 후 원하는 식당 보기
+	public void selectAfterRegionRes(int RegionNum, String selectNum) {
+		printSpace();
+		resDTO = resDAO.selectAfterRegionRes(RegionNum, selectNum);
+		System.out.println(resDTO.getWish_count());
+		System.out.println(resDTO.getRes_name());
+		System.out.println(resDTO.getRes_tel());
+		int num2 = 1;
+		for (MenuDTO menu : resDTO.getMenuList()) {
+			System.out.println(num2 + ". " + menu);
+			num2++;
+		}
+		System.out.println(resDTO.getLocation());
+		System.out.println(resDTO.getRes_info()+"\n");
+	}
+	
+	
+	
+	
 	// 찜 많은 순으로 보기
 	public void wishBestSelect() {
 		printSpace();
@@ -157,9 +176,10 @@ public class RestaurantService {
 		System.out.print("원하시는 식당을 선택해주세요 : ");
 		int select = sc.nextInt();
 		int wish_n = select;
+		String res_id = resDAO.selectWishRes(wish_n).getRes_id();
 		while(true) {
 			printSpace();
-			selectWishRes(wish_n);
+			selectAfterWishRes(res_id);
 			System.out.println("원하시는 기능을 선택해주세요.");
 			System.out.println("0. 이전 페이지로 돌아가기");
 			System.out.println("1. 찜하기");
@@ -173,8 +193,6 @@ public class RestaurantService {
 			    
 			    wishlistDTO.setId(memberDTO.getId());
 			    wishlistDTO.setRes_id(wish_res_id);
-			    System.out.println(wish_res_id);
-			    System.out.println(wish_n);
 			    
 			    try {
 			    	
@@ -210,4 +228,20 @@ public class RestaurantService {
 		System.out.println(resDTO.getRes_info()+"\n");
 	}
 	
+	// 찜 많은 순에서 찜 선택 후 선택 식당 보기
+	public void selectAfterWishRes(String select) {
+		printSpace();
+		resDTO = resDAO.selectAfterWishRes(select);
+		
+		System.out.println(resDTO.getWish_count());
+		System.out.println(resDTO.getRes_name());
+		System.out.println(resDTO.getRes_tel());
+		int num1 = 1;
+		for (MenuDTO menu : resDTO.getMenuList()) {
+			System.out.println(num1 + ". " + menu);
+			num1++;
+		}
+		System.out.println(resDTO.getLocation());
+		System.out.println(resDTO.getRes_info()+"\n");
+	}
 }

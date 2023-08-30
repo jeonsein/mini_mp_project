@@ -18,5 +18,10 @@ public interface RestaurantDAOInterface {
 	
 	// 찜 많은 순에서 원하는 식당 보기
 	public RestaurantDTO selectWishRes(int num);
-
+	
+	// 지역 순에서 찜 선택 후 원하는 식당 보기
+	public RestaurantDTO selectAfterRegionRes(int RegionNum, String selectNum);
+	
+	// 찜 많은 순에서 찜 선택 후 선택 식당 보기
+	public RestaurantDTO selectAfterWishRes(String num);
 }

@@ -108,10 +108,9 @@ public class MemberInformationDAO {
 				String  W_ID = rs.getString("res_id");
 				String  R_NAME= rs.getString("res_name");
 				String  R_ID= rs.getString("res_id"); 
-			    System.out.println("아이디: " + M_ID); 
-	            System.out.println("위시리스트 아이디: " +  W_ID); 
 	            System.out.println("레스토랑 이름: " +  R_NAME); 
-	            System.out.println("레스토랑 아이디: " + R_ID); 
+	            System.out.println("레스토랑 아이디: " + R_ID);
+	            System.out.println("---------------------");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
