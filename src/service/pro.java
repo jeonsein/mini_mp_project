@@ -77,7 +77,7 @@ public class pro {
 
 					System.out.println("탈퇴 되었습니다, 감사합니다.");
 					// 회원탈톼후 루프 종료
-
+					return 1;
 					// my page 이동
 				} else if (opt1.equals("2")) {
 					System.out.println("첫화면으로 돌아갑니다.");
