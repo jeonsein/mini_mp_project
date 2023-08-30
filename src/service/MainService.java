@@ -18,7 +18,7 @@ public class MainService {
     }
 
 	public static MemberDTO loginedMember; // 로그인된 사용자 아이디를 기억시킬 전역변수
-	
+
 	String user_id;
 
 	pro Pro = new pro();
@@ -48,14 +48,16 @@ public class MainService {
 							break;
 						}
 					}
+
 					while(true) {
 						System.out.println("1. 맛집리스트 보기 ");
 						System.out.println("2. my page 보기 ");
 						userInput = Integer.parseInt(s.nextLine());
 						if (userInput == 1) {
+
 							RestaurantService resService = new RestaurantService(loginedMember);
+
 							resService.restaurantList();
-							
 
 						} else if (userInput == 2) {
 						
@@ -66,7 +68,7 @@ public class MainService {
 								}
 						}
 					}
-					
+
 
 				} else if (userInput == 2) {
 					signIn();
@@ -195,7 +197,7 @@ public class MainService {
 			}
 		} catch (Exception e) {
 			System.out.println("4자리 이하 한글만 입력하세요");
-//			checkName();
+			//			checkName();
 			return null;
 		}
 
