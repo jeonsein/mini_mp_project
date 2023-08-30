@@ -1,18 +1,28 @@
 package service;
 
 import dao.MemberInformationDAO;
+import img.Loading;
+import img.Mango;
+import img.Music;
 
 public class Mangoplate {
 
 	public static void main(String[] args) {
 
 		// 미니 프로젝트 메인문
-		MemberInformationDAO dao=new MemberInformationDAO();
-		
-		System.out.println(">>> 망고플레이트에 오신걸 환영합니다!");
+		MemberInformationDAO dao = new MemberInformationDAO();
 		MainService mainService = new MainService();
-		mainService.start();
+		Mango mango = new Mango();
+		Loading loading = new Loading();
+		mango.mangoImg();
+		loading.run();
 		
-	}	
+		Music music = new Music("Lawrence - TrackTribe.mp3",true);
+		music.setDaemon(true);
+		music.start();
+		
+		mainService.start();
+
+	}
 
 }

@@ -9,8 +9,13 @@ import dto.MemberDTO;
 import dto.RegionDTO;
 
 public class MainService {
-
-	Scanner s = new Scanner(System.in);
+	
+	
+	public static void printSpace() {
+        for (int i = 0; i < 60; i++) {
+            System.out.println("");
+        }
+    }
 
 	public static MemberDTO loginedMember; // 로그인된 사용자 아이디를 기억시킬 전역변수
 	
@@ -22,7 +27,8 @@ public class MainService {
 	 * 프로그램 시작 메서드
 	 */
 	public void start() {
-
+		printSpace();
+		System.out.println(">>> 망고플레이트에 오신걸 환영합니다!");
 		Scanner s = new Scanner(System.in);
 		int userInput = 100;
 
@@ -88,6 +94,7 @@ public class MainService {
 		String user_name = null; // name
 		int region_number = 0; // 사용자 지역 코드
 		String user_tel = null; // 입력받은 사용자 전화번호
+		
 
 		System.out.println(">>> 회원 가입 <<<");
 		System.out.println("정보를 입력해 주세요.");
@@ -139,6 +146,7 @@ public class MainService {
 
 	// ID가 중복되었는지 찾으면서 ID 값을 리턴하게 한다. (String 타입)
 	public String check_Id() {
+		Scanner s = new Scanner(System.in);
 		Member_DAO member_DAO = new Member_DAO();
 		System.out.print("아이디 : ");
 		user_id = s.nextLine();
