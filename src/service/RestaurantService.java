@@ -124,45 +124,44 @@ public class RestaurantService {
 			        System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
 			    } // try-catch
 			    
-			    System.out.println("이전 페이지로 돌아갑니다.");
-			    break;
 			    
 			} // if-else
 			
 		} // while
 	} // regionSelect()
 	
-	// 지역 순에서 원하는 식당 보기
-	public void selectRegionRes(int RegionNum, int selectNum) {
-		printSpace();
-		resDTO = resDAO.selectRegionRes(RegionNum, selectNum);
-		System.out.println(resDTO.getWish_count());
-		System.out.println(resDTO.getRes_name());
-		System.out.println(resDTO.getRes_tel());
-		int num2 = 1;
-		for (MenuDTO menu : resDTO.getMenuList()) {
-			System.out.println(num2 + ". " + menu);
-			num2++;
-		}
-		System.out.println(resDTO.getLocation());
-		System.out.println(resDTO.getRes_info()+"\n");
-	}
+//	// 지역 순에서 원하는 식당 보기
+//	public void selectRegionRes(int RegionNum, int selectNum) {
+//		printSpace();
+//		resDTO = resDAO.selectRegionRes(RegionNum, selectNum);
+//		System.out.println(resDTO.getWish_count());
+//		System.out.println(resDTO.getRes_name());
+//		System.out.println(resDTO.getRes_tel());
+//		int num2 = 1;
+//		for (MenuDTO menu : resDTO.getMenuList()) {
+//			System.out.println(num2 + ". " + menu);
+//			num2++;
+//		}
+//		System.out.println(resDTO.getLocation());
+//		System.out.println(resDTO.getRes_info()+"\n");
+//	}
 	
 	
 	// 지역 순에서 찜 선택 후 원하는 식당 보기
 	public void selectAfterRegionRes(int RegionNum, String selectNum) {
 		printSpace();
 		resDTO = resDAO.selectAfterRegionRes(RegionNum, selectNum);
-		System.out.println(resDTO.getWish_count());
-		System.out.println(resDTO.getRes_name());
-		System.out.println(resDTO.getRes_tel());
-		int num2 = 1;
+		System.out.println("찜 : " + resDTO.getWish_count());
+		System.out.println("상호명 : " + resDTO.getRes_name());
+		System.out.println("전화번호 : " + resDTO.getRes_tel());
+		System.out.println("메뉴");
+		int num1 = 1;
 		for (MenuDTO menu : resDTO.getMenuList()) {
-			System.out.println(num2 + ". " + menu);
-			num2++;
+			System.out.println(num1 + ". " + menu);
+			num1++;
 		}
-		System.out.println(resDTO.getLocation());
-		System.out.println(resDTO.getRes_info()+"\n");
+		System.out.println("위치 : " + resDTO.getLocation());
+		System.out.println("식당소개 : " + resDTO.getRes_info()+"\n");
 	}
 	
 	
@@ -211,45 +210,45 @@ public class RestaurantService {
 			        System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
 			    } // try-catch
 			    
-			    System.out.println("이전 페이지로 돌아갑니다.");
-			    break;
 			    
 			} // if-else
 			
 		} // while
 	} // wishBestSelect()
 	
-	// 찜 많은 순에서 원하는 식당 보기
-	public void selectWishRes(int select) {
-		printSpace();
-		resDTO = resDAO.selectWishRes(select);
-
-		System.out.println(resDTO.getWish_count());
-		System.out.println(resDTO.getRes_name());
-		System.out.println(resDTO.getRes_tel());
-		int num1 = 1;
-		for (MenuDTO menu : resDTO.getMenuList()) {
-			System.out.println(num1 + ". " + menu);
-			num1++;
-		}
-		System.out.println(resDTO.getLocation());
-		System.out.println(resDTO.getRes_info()+"\n");
-	}
+//	// 찜 많은 순에서 원하는 식당 보기
+//	public void selectWishRes(int select) {
+//		printSpace();
+//		resDTO = resDAO.selectWishRes(select);
+//
+//		System.out.println("찜 :" + resDTO.getWish_count());
+//		System.out.println("상호명 :" + resDTO.getRes_name());
+//		System.out.println("전화번호 :" + resDTO.getRes_tel());
+//		System.out.println("메뉴");
+//		int num1 = 1;
+//		for (MenuDTO menu : resDTO.getMenuList()) {
+//			System.out.println(num1 + ". " + menu);
+//			num1++;
+//		}
+//		System.out.println("위치 :" + resDTO.getLocation());
+//		System.out.println("식당소개 :" + resDTO.getRes_info()+"\n");
+//	}
 	
 	// 찜 많은 순에서 찜 선택 후 선택 식당 보기
 	public void selectAfterWishRes(String select) {
 		printSpace();
 		resDTO = resDAO.selectAfterWishRes(select);
 		
-		System.out.println(resDTO.getWish_count());
-		System.out.println(resDTO.getRes_name());
-		System.out.println(resDTO.getRes_tel());
+		System.out.println("찜 : " + resDTO.getWish_count());
+		System.out.println("상호명 : " + resDTO.getRes_name());
+		System.out.println("전화번호 : " + resDTO.getRes_tel());
+		System.out.println("메뉴");
 		int num1 = 1;
 		for (MenuDTO menu : resDTO.getMenuList()) {
 			System.out.println(num1 + ". " + menu);
 			num1++;
 		}
-		System.out.println(resDTO.getLocation());
-		System.out.println(resDTO.getRes_info()+"\n");
+		System.out.println("위치 : " + resDTO.getLocation());
+		System.out.println("식당소개 : " + resDTO.getRes_info()+"\n");
 	}
 }

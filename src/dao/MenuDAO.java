@@ -4,7 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 import db.DBConnect;
 import dto.MenuDTO;
@@ -41,13 +42,11 @@ public class MenuDAO implements MenuDAOInterface{
 			}
 		}
 	}
-
-	
 	
 	@Override
-	public Vector<Object> selectWishMenu(int num) {
+	public List<MenuDTO> selectWishMenu(int num) {
 		
-		Vector<Object> v = new Vector<Object>();
+		List<MenuDTO> v = new ArrayList<>();
 		
 		ResultSet rs = null;
 		

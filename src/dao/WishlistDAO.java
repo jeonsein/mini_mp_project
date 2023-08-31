@@ -37,7 +37,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 		String user = "mango";
 		String password = "mango";
 		
@@ -109,7 +109,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 		String user = "mango";
 		String password = "mango";
 	    

@@ -159,7 +159,7 @@ public class MainService {
 			return null; // id가 중복되면 null을 리턴한다.
 		} else {
 			System.out.println("사용 가능한 아이디입니다.");
-			System.out.println("리턴된 user_id" + user_id);
+//			System.out.println("리턴된 user_id" + user_id);
 			return user_id;
 		}
 

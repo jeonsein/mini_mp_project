@@ -9,7 +9,7 @@ public class DBConnect {
 	private static DBConnect db = new DBConnect();
 	private Connection conn = null;
 	
-	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 	String user = "mango";
 	String password = "mango";
 	
@@ -18,7 +18,7 @@ public class DBConnect {
 		// 드라이버 클래스 JVM에 로드
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
-			System.out.println("JDBC드라이버 로드성공");
+			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			return;
@@ -27,7 +27,7 @@ public class DBConnect {
 		// DB와 연결
 		try {
 			conn = DriverManager.getConnection(url, user, password);
-			System.out.println("DB와 연결 성공");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return;

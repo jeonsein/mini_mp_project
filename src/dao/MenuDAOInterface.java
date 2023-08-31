@@ -1,10 +1,12 @@
 package dao;
 
-import java.util.Vector;
+import java.util.List;
+
+import dto.MenuDTO;
 
 public interface MenuDAOInterface {
 	
 	// 찜 많은 순에서 선택 식당 메뉴 보기
-	public Vector<Object> selectWishMenu(int num);
+	public List<MenuDTO> selectWishMenu(int num);
 
 }
