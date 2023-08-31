@@ -11,6 +11,7 @@
  - 'Java 11'
  - 'JDK 11'
  - Database : Oracle DB(11 xe)
+ - library : ojdbc11-23.2.0.0.jar / jl1.0.1.jar
 
 ### 담당 파트
  - 맛집리스트 기능 구현
