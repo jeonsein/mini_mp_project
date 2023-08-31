@@ -18,6 +18,7 @@
  - ASCII Art
 
 ### DB구성
-
+![image](https://github.com/jaseongkim/React-hanghae99/assets/109050392/863d5849-3cb7-4e19-8b52-4c37d3448634)
 
 ### 구현 결과
+
