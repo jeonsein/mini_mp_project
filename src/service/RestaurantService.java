@@ -94,7 +94,7 @@ public class RestaurantService {
 	
 	/*
 	 * 선택한 지역의 식당 목록을 보여줌.
-	 * 사용자가 원하는 식당을 선택하면 selectRegionRes() 메소드를 호출하고, 찜하기를 선택하면 Wish_list에 추가합니다.
+	 * 사용자가 원하는 식당을 선택하면 selectRegionRes() 메소드를 호출하고, 찜하기를 선택하면 Wish_list에 추가!
 	 */
 	// 지역 별로 보기
 	public void regionSelect(int RegionNum) {
@@ -111,11 +111,11 @@ public class RestaurantService {
 		int select = sc.nextInt();
 		// 사용자가 지역별로 정렬된 식당 목록에서 하나를 선택 -> 해당 입력값은 변수 n에 저장
 		int n = select;
-		
+		String res_id = resDAO.selectRegionRes(regionNum, n).getRes_id();
 		while(true) {
 			printSpace();
 			// selectRegionRes() 메소드 호출 -> 선택한 식당의 정보와 메뉴를 출력
-			selectRegionRes(regionNum, n);
+			selectAfterRegionRes(regionNum, res_id);
 			System.out.println("원하시는 기능을 선택해주세요.");
 			System.out.println("0. 이전 페이지로 돌아가기");
 			System.out.println("1. 찜하기");
@@ -134,15 +134,17 @@ public class RestaurantService {
 			    // // 로그인한 사용자의 id & 식당의 res_id를 wishlistDTO에 설정!
 			    wishlistDTO.setId(memberDTO.getId());
 			    wishlistDTO.setRes_id(wish_res_id);
-			    
+			
 			    try {
 			    	
 			    	// 사용자가 이미 찜한 식당인지 확인하는 메소드.
 			    	// 이미 찜한 경우, "찜 목록에 이미 등록되어 있습니다!" 메시지 출력!
 			    	// 아니면, wishlistDAO.addWish(memberDTO.getId(), wish_res_id);를 호출 -> 찜 리스트에 추가
 			        if (wishlistDAO.isAlreadyWished(wishlistDTO)) {
+			        	// isAlreadyWished()에서 true 반환할 경우
 			            System.out.println("찜 목록에 이미 등록되어 있습니다!");
 			        } else {
+			        	// isAlreadyWished()에서 false 반환할 경우
 			            wishlistDAO.addWish(memberDTO.getId(), wish_res_id);
 			            System.out.println("찜 리스트에 추가되었습니다!");
 			        } // if-else
@@ -150,9 +152,6 @@ public class RestaurantService {
 			    } catch (Exception e) {
 			        System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
 			    } // try-catch
-			    
-			    System.out.println("이전 페이지로 돌아갑니다.");
-			    break;
 			    
 			} // if-else
 			
@@ -166,6 +165,25 @@ public class RestaurantService {
 	public void selectRegionRes(int RegionNum, int selectNum) {
 		printSpace();
 		resDTO = resDAO.selectRegionRes(RegionNum, selectNum);
+		System.out.println(resDTO.getWish_count());
+		System.out.println(resDTO.getRes_name());
+		System.out.println(resDTO.getRes_tel());
+		int num2 = 1;
+		for (MenuDTO menu : resDTO.getMenuList()) {
+			System.out.println(num2 + ". " + menu);
+			num2++;
+		}
+		System.out.println(resDTO.getLocation());
+		System.out.println(resDTO.getRes_info()+"\n");
+	}
+	
+	/*
+	 * 찜 등록 이후, 해당 음식점의 상세 정보와 메뉴를 표시
+	 */
+	// 지역 순에서 찜 선택 후 원하는 식당 보기
+	public void selectAfterRegionRes(int RegionNum, String selectNum) {
+		printSpace();
+		resDTO = resDAO.selectAfterRegionRes(RegionNum, selectNum);
 		System.out.println(resDTO.getWish_count());
 		System.out.println(resDTO.getRes_name());
 		System.out.println(resDTO.getRes_tel());
@@ -198,10 +216,11 @@ public class RestaurantService {
 		int select = sc.nextInt();
 		// 사용자가 찜 많은 순으로 정렬된 식당 목록에서 하나를 선택 후, 해당 입력값을 wish_n에 저장함!
 		int wish_n = select;
+		String res_id = resDAO.selectWishRes(wish_n).getRes_id();
 		while(true) {
 			printSpace();
-			// selectWishRes(wish_n) 메소드 호출 -> 사용자가 선택한 식당의 정보와 메뉴를 출력.
-			selectWishRes(wish_n);
+			// selectWishRes(res_id) 메소드 호출 -> 사용자가 선택한 식당의 정보와 메뉴를 출력.
+			selectAfterWishRes(res_id);
 			System.out.println("원하시는 기능을 선택해주세요.");
 			System.out.println("0. 이전 페이지로 돌아가기");
 			System.out.println("1. 찜하기");
@@ -234,9 +253,6 @@ public class RestaurantService {
 			        System.out.println("찜 리스트 추가 실패하였습니다!" + e.getMessage());
 			    } // try-catch
 			    
-			    System.out.println("이전 페이지로 돌아갑니다.");
-			    break;
-			    
 			} // if-else
 			
 		} // while
@@ -262,4 +278,23 @@ public class RestaurantService {
 		System.out.println(resDTO.getRes_info()+"\n");
 	}
 	
+	/*
+	 * 찜 등록 이후, 해당 음식점의 상세 정보와 메뉴를 표시
+	 */
+	// 찜 많은 순에서 찜 선택 후 선택 식당 보기
+	public void selectAfterWishRes(String select) {
+		printSpace();
+		resDTO = resDAO.selectAfterWishRes(select);
+		
+		System.out.println(resDTO.getWish_count());
+		System.out.println(resDTO.getRes_name());
+		System.out.println(resDTO.getRes_tel());
+		int num1 = 1;
+		for (MenuDTO menu : resDTO.getMenuList()) {
+			System.out.println(num1 + ". " + menu);
+			num1++;
+		}
+		System.out.println(resDTO.getLocation());
+		System.out.println(resDTO.getRes_info()+"\n");
+	}
 }

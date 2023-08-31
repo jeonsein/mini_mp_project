@@ -12,7 +12,6 @@ import dto.WishlistDTO;
 // 찜하기 기능의 인터페이스를 정의함!
 public class WishlistDAO implements WishlistDAOInterface {
 
-	
 	// 로그인한 사용자의 정보를 저장
     MemberDTO memberDTO;
 
@@ -23,10 +22,12 @@ public class WishlistDAO implements WishlistDAOInterface {
 //	해당 생성자는 WishlistDAO 클래스의 인스턴스를 생성할 때 호출됨! 
 //	생성자는 MemberDTO 타입의 인자를 받아서 클래스의 필드 memberDTO에 저장! 
 //	-> 클래스의 다른 메서드에서도 로그인한 사용자의 정보를 접근할 수 있음!
-	
+    
+	// 찜 테이블에 찜 목록 추가하기!
 	@Override
 	public void addWish(String userId, String resId) throws Exception {
 
+		// Oracle JDBC 드라이버를 로드 + 데이터베이스 연결 설정
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 		} catch (ClassNotFoundException e) {
@@ -100,7 +101,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 	} // addWish()
 	
 //	--------------------------------------------------------------------------------
-	
+    
 	// 위시리스트에 이미 추가되어있는지 아닌지를 확인하는 메소드
 	@Override
 	public boolean isAlreadyWished(WishlistDTO wishlistDTO) throws Exception {
@@ -131,7 +132,7 @@ public class WishlistDAO implements WishlistDAOInterface {
 	        	// ResultSet의 현재 레코드에서 첫 번째 컬럼의 값 (= count(*)의 결과) 
 	            int count = rs.getInt(1);
 	            
-	            // SQL 구문 실행 후 카운트 변수가 0보다 크면 -> 해당 데이터가 이미 db에 존재함 = 중복!
+	            // SQL 구문 실행 후 카운트 변수가 0보다 크면 -> 해당 데이터가 이미 db에 존재함 = 중복! -> true 반환
 	            return count > 0;
 	        } // if
 	        
@@ -169,6 +170,4 @@ public class WishlistDAO implements WishlistDAOInterface {
 	    
 	} // isAlreadyWished()
 	
-	
-
 } // end class
