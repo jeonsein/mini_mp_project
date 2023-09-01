@@ -14,8 +14,8 @@
  - library : ojdbc11-23.2.0.0.jar / jl1.0.1.jar
 
 ### 담당 파트
- - 맛집리스트 기능 구현
- - bgm
+ - 맛집리스트 기능 구현 ( 데이터베이스에 저장된 정보를 통한 구현 )
+ - bgm ( library와 thread를 이용한 bgm 구현 )
  - ASCII Art
 
 ### DB구성
